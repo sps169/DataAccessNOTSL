@@ -61,7 +61,7 @@ public class Department {
         this.endedProjects = endedProjects;
     }
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @Embedded
     public Programmer getBoss() {
         return boss;
     }
