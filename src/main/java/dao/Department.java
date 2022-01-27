@@ -43,7 +43,7 @@ public class Department {
         this.budget = budget;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "department", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Project> getOngoingProjects() {
         return ongoingProjects;
     }
@@ -52,7 +52,7 @@ public class Department {
         this.ongoingProjects = ongoingProjects;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "department", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Project> getEndedProjects() {
         return endedProjects;
     }

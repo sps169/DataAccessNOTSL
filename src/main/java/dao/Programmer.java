@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Programmer {
     private UUID id;
     private String name;
+    private String mail;
     private LocalDateTime entryDate;
     private Department department;
     private double salary;
@@ -18,6 +19,7 @@ public class Programmer {
     private Set<Project> activeProjects;
     private Set<Commit> commits;
     private Set<Issue> issues;
+    private Set<Login> logins;
 
     @Id
     public UUID getId() {
@@ -36,6 +38,16 @@ public class Programmer {
 
     public void setName(String nombre) {
         this.name = nombre;
+    }
+
+    @Basic
+    @Column(nullable = false)
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Column(name = "entryDate", nullable = false)
@@ -119,5 +131,14 @@ public class Programmer {
 
     public void setIssues(Set<Issue> issues) {
         this.issues = issues;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "programmer", cascade = CascadeType.DETACH)
+    public Set<Login> getLogins() {
+        return logins;
+    }
+
+    public void setLogins(Set<Login> logins) {
+        this.logins = logins;
     }
 }
