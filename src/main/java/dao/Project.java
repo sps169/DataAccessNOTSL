@@ -1,7 +1,92 @@
 package dao;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Project {
+    private UUID id;
+    private String name;
+    private double budget;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Set<Technology> technologies;
+    private Repository repository;
+    private Programmer boss;
+
+    @Id
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Basic
+    @Column(nullable = false)
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    @Column(name = "start_date", nullable = false)
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    @Column(name = "end_date", nullable = false)
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    @ElementCollection
+    public Set<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(Set<Technology> technologies) {
+        this.technologies = technologies;
+    }
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    public Repository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(Repository repository) {
+        this.repository = repository;
+    }
+
+    @Embedded
+    public Programmer getBoss() {
+        return boss;
+    }
+
+    public void setBoss(Programmer boss) {
+        this.boss = boss;
+    }
 }
