@@ -11,8 +11,8 @@ import javax.persistence.Persistence;
  * Controlador de Entidades de Hibernate JPA
  */
 @Getter
-public class HibernateController {
-    private static HibernateController controller;
+public class HibernateController implements DBController {
+    private static DBController controller;
 
     // Creamos las EntityManagerFactory para manejar las entidades y transacciones
     private EntityManagerFactory entityManagerFactory;
@@ -22,7 +22,7 @@ public class HibernateController {
     private HibernateController() {
     }
 
-    public static HibernateController getInstance() {
+    public static DBController getInstance() {
         if (controller == null)
             controller = new HibernateController();
         return controller;

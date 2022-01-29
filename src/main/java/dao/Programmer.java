@@ -1,32 +1,36 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
-@Embeddable
 public class Programmer {
-    private UUID id;
+    private String id;
     private String name;
     private String mail;
     private LocalDateTime entryDate;
     private Department department;
     private double salary;
     private String password;
-    private Set<Technology> technologies;
+//    private Set<Technology> technologies;
     private Set<Project> activeProjects;
     private Set<Commit> commits;
     private Set<Issue> issues;
     private Set<Login> logins;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    @Type(type = "objectid")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -89,14 +93,14 @@ public class Programmer {
         this.password = password;
     }
 
-    @ElementCollection
-    public Set<Technology> getTechnologies() {
-        return technologies;
-    }
+//    @ElementCollection
+//    public Set<Technology> getTechnologies() {
+//        return technologies;
+//    }
 
-    public void setTechnologies(Set<Technology> technologies) {
-        this.technologies = technologies;
-    }
+//    public void setTechnologies(Set<Technology> technologies) {
+//        this.technologies = technologies;
+//    }
 
     @ManyToMany
     @JoinTable(
@@ -133,7 +137,7 @@ public class Programmer {
         this.issues = issues;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "programmer", cascade = CascadeType.DETACH)
+    @OneToMany
     public Set<Login> getLogins() {
         return logins;
     }

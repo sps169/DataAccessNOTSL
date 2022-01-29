@@ -1,12 +1,14 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 public class Commit {
-    private UUID id;
+    private String id;
     private String title;
     private String text;
     private LocalDateTime date;
@@ -15,11 +17,14 @@ public class Commit {
     private Programmer programmer;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    @Type(type = "objectid")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,7 +58,6 @@ public class Commit {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_repository", referencedColumnName = "id", nullable = false)
     public Repository getRepository() {
         return repository;
     }
@@ -63,7 +67,6 @@ public class Commit {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_project", referencedColumnName = "id", nullable = false)
     public Project getProject() {
         return project;
     }
@@ -73,7 +76,6 @@ public class Commit {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_programmer", referencedColumnName = "id", nullable = false)
     public Programmer getProgrammer() {
         return programmer;
     }

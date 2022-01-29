@@ -1,13 +1,15 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 public class Repository {
-    private UUID id;
+    private String id;
     private String name;
     private LocalDateTime creationDate;
     private Project project;
@@ -15,11 +17,14 @@ public class Repository {
     private Set<Issue> issues;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    @Type(type = "objectid")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

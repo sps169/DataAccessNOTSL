@@ -1,27 +1,32 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 public class Project {
-    private UUID id;
+    private String id;
     private String name;
     private double budget;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Set<Technology> technologies;
+//    private Set<Technology> technologies;
     private Repository repository;
     private Programmer boss;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    @Type(type = "objectid")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,15 +67,15 @@ public class Project {
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
-
-    @ElementCollection
-    public Set<Technology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(Set<Technology> technologies) {
-        this.technologies = technologies;
-    }
+//
+//    @ElementCollection
+//    public Set<Technology> getTechnologies() {
+//        return technologies;
+//    }
+//
+//    public void setTechnologies(Set<Technology> technologies) {
+//        this.technologies = technologies;
+//    }
 
     @OneToOne(cascade = CascadeType.REMOVE)
     public Repository getRepository() {
@@ -81,7 +86,7 @@ public class Project {
         this.repository = repository;
     }
 
-    @Embedded
+    @OneToOne
     public Programmer getBoss() {
         return boss;
     }

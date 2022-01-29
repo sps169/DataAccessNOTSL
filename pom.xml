@@ -23,6 +23,11 @@
             <version>5.4.0.Final</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-mongodb</artifactId>
+            <version>5.4.0.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.narayana.jta</groupId>
             <artifactId>narayana-jta</artifactId>
             <version>5.9.2.Final</version>
@@ -31,6 +36,12 @@
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <version>1.0.1.Final</version>
+        </dependency>
+        <!-- JBEX -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

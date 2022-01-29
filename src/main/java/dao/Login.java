@@ -1,40 +1,47 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")
+})
 public class Login {
-    private UUID id;
-    private Programmer programmer;
-    private LocalDateTime time;
+    private String id;
+//    private Programmer programmer;
+    private Date time;
     private UUID token;
     private boolean active;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    @ManyToOne
-    public Programmer getIdProgrammer() {
-        return programmer;
-    }
+//    @ManyToOne
+//    public Programmer getProgrammer() {
+//        return programmer;
+//    }
+//
+//    public void setProgrammer(Programmer programmer) {
+//        this.programmer = programmer;
+//    }
 
-    public void setIdProgrammer(Programmer programmer) {
-        this.programmer = programmer;
-    }
-
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -52,5 +59,16 @@ public class Login {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "id='" + id + '\'' +
+                ", time=" + time +
+                ", token=" + token +
+                ", active=" + active +
+//                ", programmer=" + programmer.getId() +
+                '}';
     }
 }

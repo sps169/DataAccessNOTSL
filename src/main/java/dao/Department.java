@@ -1,12 +1,14 @@
 package dao;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 public class Department {
-    private UUID id;
+    private String id;
     private String name;
     private double budget;
     private Set<Project> ongoingProjects;
@@ -15,11 +17,14 @@ public class Department {
     private Set<Programmer> historicBosses;
 
     @Id
-    public UUID getId() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    @Type(type = "objectid")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,7 +66,7 @@ public class Department {
         this.endedProjects = endedProjects;
     }
 
-    @Embedded
+    @OneToOne
     public Programmer getBoss() {
         return boss;
     }
@@ -71,10 +76,6 @@ public class Department {
     }
 
     @ManyToMany
-    @JoinTable(
-            name = "historic_bosses",
-            joinColumns = @JoinColumn(name = "id_department"),
-            inverseJoinColumns = @JoinColumn(name = "id_boss"))
     public Set<Programmer> getHistoricBosses() {
         return historicBosses;
     }
