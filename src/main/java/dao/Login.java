@@ -12,13 +12,14 @@ import java.util.UUID;
 })
 public class Login {
     private String id;
-//    private Programmer programmer;
+    private Programmer programmer;
     private Date time;
     private UUID token;
     private boolean active;
 
-    public Login(String id, Date time, UUID token, boolean active) {
+    public Login(String id, Programmer programmer, Date time, UUID token, boolean active) {
         this.id = id;
+        this.programmer = programmer;
         this.time = time;
         this.token = token;
         this.active = active;
@@ -39,14 +40,14 @@ public class Login {
         this.id = id;
     }
 
-//    @ManyToOne
-//    public Programmer getProgrammer() {
-//        return programmer;
-//    }
-//
-//    public void setProgrammer(Programmer programmer) {
-//        this.programmer = programmer;
-//    }
+    @ManyToOne
+    public Programmer getProgrammer() {
+        return programmer;
+    }
+
+    public void setProgrammer(Programmer programmer) {
+        this.programmer = programmer;
+    }
 
     public Date getTime() {
         return time;

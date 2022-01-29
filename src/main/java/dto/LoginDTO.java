@@ -8,14 +8,14 @@ import java.util.UUID;
 
 public class LoginDTO {
     private String id;
-//    private Programmer programmer;
+    private Programmer programmer;
     private Date time;
     private UUID token;
     private boolean active;
 
-    public LoginDTO(String id, Date time, UUID token, boolean active) {
+    public LoginDTO(String id, Programmer programmer, Date time, UUID token, boolean active) {
         this.id = id;
-//        this.programmer = programmer;
+        this.programmer = programmer;
         this.time = time;
         this.token = token;
         this.active = active;
@@ -31,14 +31,14 @@ public class LoginDTO {
     public void setId(String id) {
         this.id = id;
     }
-//
-//    public Programmer getProgrammer() {
-//        return programmer;
-//    }
-//
-//    public void setProgrammer(Programmer programmer) {
-//        this.programmer = programmer;
-//    }
+
+    public Programmer getProgrammer() {
+        return programmer;
+    }
+
+    public void setProgrammer(Programmer programmer) {
+        this.programmer = programmer;
+    }
 
     public Date getTime() {
         return time;
@@ -68,7 +68,7 @@ public class LoginDTO {
     public String toString() {
         return "LoginDTO{" +
                 "id=" + id +
-//                ", programmer=" +programmer.basicToString()+
+                ", programmer=" +programmer.basicToString()+
                 ", time=" + time +
                 ", token=" + token +
                 ", active=" + active +
@@ -82,7 +82,7 @@ public class LoginDTO {
         LoginDTO loginDTO = (LoginDTO) o;
         return active == loginDTO.active
                 && Objects.equals(id, loginDTO.id)
-//                && Objects.equals(programmer.getId(), loginDTO.programmer.getId())
+                && Objects.equals(programmer.getId(), loginDTO.programmer.getId())
                 && Objects.equals(time, loginDTO.time)
                 && token.compareTo(loginDTO.getToken()) == 0;
     }
