@@ -1,20 +1,14 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.Programmer;
+import dao.Project;
+import dao.Repository;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Issue.findAll", query = "SELECT l FROM Issue l")
-})
-public class Issue {
+
+public class IssueDTO {
     private String id;
     private String title;
     private String text;
@@ -23,10 +17,16 @@ public class Issue {
     private Project project;
     private Repository repository;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public IssueDTO(String id, String title, String text, LocalDateTime date, Set<Programmer> programmers, Project project, Repository repository) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.date = date;
+        this.programmers = programmers;
+        this.project = project;
+        this.repository = repository;
+    }
+
     public String getId() {
         return id;
     }
@@ -35,8 +35,6 @@ public class Issue {
         this.id = id;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getTitle() {
         return title;
     }
@@ -45,8 +43,6 @@ public class Issue {
         this.title = title;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getText() {
         return text;
     }
@@ -55,7 +51,6 @@ public class Issue {
         this.text = text;
     }
 
-    @Column(nullable = false)
     public LocalDateTime getDate() {
         return date;
     }
@@ -64,7 +59,6 @@ public class Issue {
         this.date = date;
     }
 
-    @ManyToMany
     public Set<Programmer> getProgrammers() {
         return programmers;
     }
@@ -73,7 +67,6 @@ public class Issue {
         this.programmers = programmers;
     }
 
-    @ManyToOne
     public Project getProject() {
         return project;
     }
@@ -82,8 +75,6 @@ public class Issue {
         this.project = project;
     }
 
-
-    @ManyToOne
     public Repository getRepository() {
         return repository;
     }
@@ -91,9 +82,8 @@ public class Issue {
     public void setRepository(Repository repository) {
         this.repository = repository;
     }
-
     public String basicToString() {
-        return "Issue{" +
+        return "IssueDTO{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
@@ -101,5 +91,19 @@ public class Issue {
                 ", project=" + project.basicToString() +
                 ", repository=" + repository.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IssueDTO issueDTO = (IssueDTO) o;
+        return Objects.equals(id, issueDTO.id)
+                && Objects.equals(title, issueDTO.title)
+                && Objects.equals(text, issueDTO.text)
+                && Objects.equals(date, issueDTO.date)
+                && Objects.equals(programmers, issueDTO.programmers)
+                && Objects.equals(project, issueDTO.project)
+                && Objects.equals(repository, issueDTO.repository);
     }
 }

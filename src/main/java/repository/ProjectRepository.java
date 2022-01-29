@@ -1,54 +1,52 @@
 package repository;
 
-
-import dao.Login;
+import dao.Commit;
+import dao.Programmer;
+import dao.Project;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.UUID;
 
-public class LoginRepository implements CRUDRepository<Login, String>{
+public class ProjectRepository implements CRUDRepository<Project,String> {
     private final DBController controller;
 
-    public LoginRepository(DBController controller) {
+    public ProjectRepository(DBController controller){
         this.controller = controller;
     }
 
     @Override
-    public List<Login> findAll() {
+    public List<Project> findAll() throws Exception {
         controller.open();
         EntityManager manager = controller.getManager();
-        TypedQuery<Login> query = manager.createNamedQuery("Login.findAll", Login.class);
-        List<Login> loginList = query.getResultList();
+        TypedQuery<Project> query = manager.createNamedQuery("Project.findAll", Project.class);
+        List<Project> projectList = query.getResultList();
         controller.close();
-        return loginList;
+        return projectList;
     }
 
     @Override
-    public Login getById(String id) throws Exception {
+    public Project getById(String id) throws Exception {
         controller.open();
         EntityManager manager = controller.getManager();
-        Login login = manager.find(Login.class, id);
+        Project project = manager.find(Project.class, id);
         controller.close();
-        if (login != null)
-            return login;
-        throw new Exception("No existe login con ID "+ id.toString());
+        return project;
     }
 
     @Override
-    public Login save(Login login) throws Exception {
+    public Project save(Project project) throws Exception {
         controller.open();
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            login.setId(null);
-            manager.persist(login);
+            project.setId(null);
+            manager.persist(project);
             manager.getTransaction().commit();
-            return login;
+            return project;
         }catch (Exception ex) {
-            throw new Exception("Error al insertar login "+ ex.getMessage());
+            throw new Exception("Error al insertar Project "+ ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
@@ -58,42 +56,41 @@ public class LoginRepository implements CRUDRepository<Login, String>{
     }
 
     @Override
-    public Login update(Login login) throws Exception {
+    public Project update(Project project) throws Exception {
         controller.open();
-        try {
+        try{
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            manager.merge(login);
+            manager.merge(project);
             manager.getTransaction().commit();
         }catch (Exception ex) {
-            throw new Exception("Error al actualizar login con id" + login.getId() + " " + ex.getMessage());
+            throw new Exception("Error al actualizar Project con id" + project.getId() + " " + ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
             }
             controller.close();
         }
-        return login;
+        return project;
     }
 
     @Override
-    public Login delete(Login login) throws Exception {
+    public Project delete(Project project) throws Exception {
         controller.open();
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Login found = manager.find(Login.class, login.getId());
-            if (found != null) manager.remove(found);
+            Commit found = manager.find(Commit.class, project.getId());
+            if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {
-            throw new Exception("Error al borrar login con id" + login.getId() + " " + ex.getMessage());
+            throw new Exception("Error al borrar Project con id" + project.getId() + " " + ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
             }
             controller.close();
         }
-        return login;
+        return project;
     }
-
 }

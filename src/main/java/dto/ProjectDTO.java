@@ -1,33 +1,31 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.Programmer;
+import dao.Repository;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Project.findAll", query = "SELECT l FROM Project l")
-})
-public class Project {
+import java.util.Objects;
+
+public class ProjectDTO {
     private String id;
     private String name;
     private double budget;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-//    private Set<Technology> technologies;
+    //    private Set<Technology> technologies;
     private Repository repository;
     private Programmer boss;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public ProjectDTO(String id, String name, double budget, LocalDateTime startDate, LocalDateTime endDate, Repository repository, Programmer boss) {
+        this.id = id;
+        this.name = name;
+        this.budget = budget;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.repository = repository;
+        this.boss = boss;
+    }
+
     public String getId() {
         return id;
     }
@@ -36,8 +34,6 @@ public class Project {
         this.id = id;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -46,8 +42,6 @@ public class Project {
         this.name = name;
     }
 
-    @Basic
-    @Column(nullable = false)
     public double getBudget() {
         return budget;
     }
@@ -56,7 +50,6 @@ public class Project {
         this.budget = budget;
     }
 
-    @Column(name = "start_date", nullable = false)
     public LocalDateTime getStartDate() {
         return startDate;
     }
@@ -65,7 +58,6 @@ public class Project {
         this.startDate = startDate;
     }
 
-    @Column(name = "end_date", nullable = false)
     public LocalDateTime getEndDate() {
         return endDate;
     }
@@ -73,17 +65,7 @@ public class Project {
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
-//
-//    @ElementCollection
-//    public Set<Technology> getTechnologies() {
-//        return technologies;
-//    }
-//
-//    public void setTechnologies(Set<Technology> technologies) {
-//        this.technologies = technologies;
-//    }
 
-    @OneToOne(cascade = CascadeType.REMOVE)
     public Repository getRepository() {
         return repository;
     }
@@ -92,7 +74,6 @@ public class Project {
         this.repository = repository;
     }
 
-    @OneToOne
     public Programmer getBoss() {
         return boss;
     }
@@ -100,7 +81,6 @@ public class Project {
     public void setBoss(Programmer boss) {
         this.boss = boss;
     }
-
     public String basicToString() {
         return "Project{" +
                 "id='" + id + '\'' +
@@ -112,4 +92,19 @@ public class Project {
                 ", boss=" + boss.basicToString() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectDTO that = (ProjectDTO) o;
+        return Double.compare(that.budget, budget) == 0
+                && Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(startDate, that.startDate)
+                && Objects.equals(endDate, that.endDate)
+                && Objects.equals(repository, that.repository)
+                && Objects.equals(boss, that.boss);
+    }
+
 }

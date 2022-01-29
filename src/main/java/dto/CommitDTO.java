@@ -1,19 +1,13 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.Programmer;
+import dao.Project;
+import dao.Repository;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Commit.findAll", query = "SELECT l FROM Commit l")
-})
-public class Commit {
+import java.util.Objects;
+
+public class CommitDTO {
     private String id;
     private String title;
     private String text;
@@ -22,10 +16,16 @@ public class Commit {
     private Project project;
     private Programmer programmer;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public CommitDTO(String id, String title, String text, LocalDateTime date, Repository repository, Project project, Programmer programmer) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.date = date;
+        this.repository = repository;
+        this.project = project;
+        this.programmer = programmer;
+    }
+
     public String getId() {
         return id;
     }
@@ -34,8 +34,6 @@ public class Commit {
         this.id = id;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getTitle() {
         return title;
     }
@@ -44,8 +42,6 @@ public class Commit {
         this.title = title;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getText() {
         return text;
     }
@@ -54,7 +50,6 @@ public class Commit {
         this.text = text;
     }
 
-    @Column(nullable = false)
     public LocalDateTime getDate() {
         return date;
     }
@@ -63,7 +58,6 @@ public class Commit {
         this.date = date;
     }
 
-    @ManyToOne
     public Repository getRepository() {
         return repository;
     }
@@ -72,7 +66,6 @@ public class Commit {
         this.repository = repository;
     }
 
-    @ManyToOne
     public Project getProject() {
         return project;
     }
@@ -81,7 +74,6 @@ public class Commit {
         this.project = project;
     }
 
-    @ManyToOne
     public Programmer getProgrammer() {
         return programmer;
     }
@@ -90,15 +82,30 @@ public class Commit {
         this.programmer = programmer;
     }
 
-    public String basicToString() {
-        return "Commit{" +
+    @Override
+    public String toString() {
+        return "CommitDTO{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", date=" + date +
-                ", repository=" + repository.basicToString() +
-                ", project=" + project.basicToString() +
+                ", repository=" + repository.toString() +
+                ", project=" + project.toString() +
                 ", programmer=" + programmer.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommitDTO commitDTO = (CommitDTO) o;
+        return Objects.equals(id, commitDTO.id)
+                && Objects.equals(title, commitDTO.title)
+                && Objects.equals(text, commitDTO.text)
+                && Objects.equals(date, commitDTO.date)
+                && Objects.equals(repository, commitDTO.repository)
+                && Objects.equals(project, commitDTO.project)
+                && Objects.equals(programmer, commitDTO.programmer);
     }
 }

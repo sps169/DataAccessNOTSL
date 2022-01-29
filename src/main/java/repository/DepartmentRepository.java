@@ -1,54 +1,51 @@
 package repository;
 
-
-import dao.Login;
+import dao.Commit;
+import dao.Department;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.UUID;
 
-public class LoginRepository implements CRUDRepository<Login, String>{
+public class DepartmentRepository implements CRUDRepository<Department,String> {
     private final DBController controller;
 
-    public LoginRepository(DBController controller) {
+    public DepartmentRepository(DBController controller){
         this.controller = controller;
     }
 
     @Override
-    public List<Login> findAll() {
+    public List<Department> findAll() throws Exception {
         controller.open();
         EntityManager manager = controller.getManager();
-        TypedQuery<Login> query = manager.createNamedQuery("Login.findAll", Login.class);
-        List<Login> loginList = query.getResultList();
+        TypedQuery<Department> query = manager.createNamedQuery("Department.findAll", Department.class);
+        List<Department> departmentList = query.getResultList();
         controller.close();
-        return loginList;
+        return departmentList;
     }
 
     @Override
-    public Login getById(String id) throws Exception {
+    public Department getById(String id) throws Exception {
         controller.open();
         EntityManager manager = controller.getManager();
-        Login login = manager.find(Login.class, id);
+        Department department = manager.find(Department.class, id);
         controller.close();
-        if (login != null)
-            return login;
-        throw new Exception("No existe login con ID "+ id.toString());
+        return department;
     }
 
     @Override
-    public Login save(Login login) throws Exception {
+    public Department save(Department department) throws Exception {
         controller.open();
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            login.setId(null);
-            manager.persist(login);
+            department.setId(null);
+            manager.persist(department);
             manager.getTransaction().commit();
-            return login;
+            return department;
         }catch (Exception ex) {
-            throw new Exception("Error al insertar login "+ ex.getMessage());
+            throw new Exception("Error al insertar Department "+ ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
@@ -58,42 +55,41 @@ public class LoginRepository implements CRUDRepository<Login, String>{
     }
 
     @Override
-    public Login update(Login login) throws Exception {
+    public Department update(Department department) throws Exception {
         controller.open();
-        try {
+        try{
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            manager.merge(login);
+            manager.merge(department);
             manager.getTransaction().commit();
         }catch (Exception ex) {
-            throw new Exception("Error al actualizar login con id" + login.getId() + " " + ex.getMessage());
+            throw new Exception("Error al actualizar Department con id" + department.getId() + " " + ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
             }
             controller.close();
         }
-        return login;
+        return department;
     }
 
     @Override
-    public Login delete(Login login) throws Exception {
+    public Department delete(Department department) throws Exception {
         controller.open();
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Login found = manager.find(Login.class, login.getId());
-            if (found != null) manager.remove(found);
+            Commit found = manager.find(Commit.class, department.getId());
+            if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {
-            throw new Exception("Error al borrar login con id" + login.getId() + " " + ex.getMessage());
+            throw new Exception("Error al borrar login con id" + department.getId() + " " + ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();
             }
             controller.close();
         }
-        return login;
+        return department;
     }
-
 }

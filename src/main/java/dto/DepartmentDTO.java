@@ -1,19 +1,12 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.Programmer;
+import dao.Project;
 
-import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Department.findAll", query = "SELECT l FROM Department l")
-})
-public class Department {
+
+public class DepartmentDTO {
     private String id;
     private String name;
     private double budget;
@@ -22,10 +15,17 @@ public class Department {
     private Programmer boss;
     private Set<Programmer> historicBosses;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public DepartmentDTO(String id, String name, double budget, Set<Project> ongoingProjects,
+                         Set<Project> endedProjects, Programmer boss, Set<Programmer> historicBosses) {
+        this.id = id;
+        this.name = name;
+        this.budget = budget;
+        this.ongoingProjects = ongoingProjects;
+        this.endedProjects = endedProjects;
+        this.boss = boss;
+        this.historicBosses = historicBosses;
+    }
+
     public String getId() {
         return id;
     }
@@ -34,8 +34,6 @@ public class Department {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -44,8 +42,6 @@ public class Department {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "budget", nullable = false)
     public double getBudget() {
         return budget;
     }
@@ -54,7 +50,6 @@ public class Department {
         this.budget = budget;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Project> getOngoingProjects() {
         return ongoingProjects;
     }
@@ -63,7 +58,6 @@ public class Department {
         this.ongoingProjects = ongoingProjects;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Project> getEndedProjects() {
         return endedProjects;
     }
@@ -72,7 +66,6 @@ public class Department {
         this.endedProjects = endedProjects;
     }
 
-    @OneToOne
     public Programmer getBoss() {
         return boss;
     }
@@ -81,7 +74,6 @@ public class Department {
         this.boss = boss;
     }
 
-    @ManyToMany
     public Set<Programmer> getHistoricBosses() {
         return historicBosses;
     }
@@ -89,9 +81,8 @@ public class Department {
     public void setHistoricBosses(Set<Programmer> historicBosses) {
         this.historicBosses = historicBosses;
     }
-
     public String basicToString() {
-        return "Department{" +
+        return "DepartmentDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
@@ -100,4 +91,19 @@ public class Department {
                 ", boss=" + boss.basicToString() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DepartmentDTO that = (DepartmentDTO) o;
+        return Double.compare(that.budget, budget) == 0
+                && Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(ongoingProjects, that.ongoingProjects)
+                && Objects.equals(endedProjects, that.endedProjects)
+                && Objects.equals(boss, that.boss)
+                && Objects.equals(historicBosses, that.historicBosses);
+    }
+
 }

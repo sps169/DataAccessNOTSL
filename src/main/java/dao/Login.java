@@ -1,11 +1,14 @@
 package dao;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")
@@ -73,14 +76,13 @@ public class Login {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
+    public String basicToString() {
         return "Login{" +
                 "id='" + id + '\'' +
                 ", time=" + time +
                 ", token=" + token +
                 ", active=" + active +
-//                ", programmer=" +programmer.basicToString()+
+                ", programmer=" +programmer.basicToString()+
                 '}';
     }
 }

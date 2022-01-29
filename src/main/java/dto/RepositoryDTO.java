@@ -1,20 +1,14 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.Commit;
+import dao.Issue;
+import dao.Project;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Repository.findAll", query = "SELECT l FROM Repository l")
-})
-public class Repository {
+
+public class RepositoryDTO {
     private String id;
     private String name;
     private LocalDateTime creationDate;
@@ -22,10 +16,15 @@ public class Repository {
     private Set<Commit> commits;
     private Set<Issue> issues;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public RepositoryDTO(String id, String name, LocalDateTime creationDate, Project project, Set<Commit> commits, Set<Issue> issues) {
+        this.id = id;
+        this.name = name;
+        this.creationDate = creationDate;
+        this.project = project;
+        this.commits = commits;
+        this.issues = issues;
+    }
+
     public String getId() {
         return id;
     }
@@ -34,8 +33,6 @@ public class Repository {
         this.id = id;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -44,7 +41,6 @@ public class Repository {
         this.name = name;
     }
 
-    @Column(name = "creation_date", nullable = false)
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
@@ -53,8 +49,6 @@ public class Repository {
         this.creationDate = creationDate;
     }
 
-    @OneToOne
-    @JoinColumn(name = "id_project", referencedColumnName = "id")
     public Project getProject() {
         return project;
     }
@@ -63,7 +57,6 @@ public class Repository {
         this.project = project;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "repository", cascade = CascadeType.REMOVE)
     public Set<Commit> getCommits() {
         return commits;
     }
@@ -72,7 +65,6 @@ public class Repository {
         this.commits = commits;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "repository", cascade = CascadeType.REMOVE)
     public Set<Issue> getIssues() {
         return issues;
     }
@@ -81,13 +73,25 @@ public class Repository {
         this.issues = issues;
     }
 
-
     public String basicToString() {
-        return "Repository{" +
+        return "RepositoryDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", creationDate=" + creationDate +
                 ", project=" + project.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RepositoryDTO that = (RepositoryDTO) o;
+        return Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(creationDate, that.creationDate)
+                && Objects.equals(project, that.project)
+                && Objects.equals(commits, that.commits)
+                && Objects.equals(issues, that.issues);
     }
 }

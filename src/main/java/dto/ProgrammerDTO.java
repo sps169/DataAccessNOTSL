@@ -1,20 +1,12 @@
-package dao;
+package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import dao.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Programmer.findAll", query = "SELECT l FROM Programmer l")
-})
-public class Programmer {
+
+public class ProgrammerDTO {
     private String id;
     private String name;
     private String mail;
@@ -22,16 +14,28 @@ public class Programmer {
     private Department department;
     private double salary;
     private String password;
-//    private Set<Technology> technologies;
+    //    private Set<Technology> technologies;
     private Set<Project> activeProjects;
     private Set<Commit> commits;
     private Set<Issue> issues;
     private Set<Login> logins;
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
+    public ProgrammerDTO(String id, String name, String mail, LocalDateTime entryDate, Department department,
+                         double salary, String password, Set<Project> activeProjects, Set<Commit> commits,
+                         Set<Issue> issues, Set<Login> logins) {
+        this.id = id;
+        this.name = name;
+        this.mail = mail;
+        this.entryDate = entryDate;
+        this.department = department;
+        this.salary = salary;
+        this.password = password;
+        this.activeProjects = activeProjects;
+        this.commits = commits;
+        this.issues = issues;
+        this.logins = logins;
+    }
+
     public String getId() {
         return id;
     }
@@ -40,18 +44,14 @@ public class Programmer {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
 
-    public void setName(String nombre) {
-        this.name = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Basic
-    @Column(nullable = false)
     public String getMail() {
         return mail;
     }
@@ -60,17 +60,14 @@ public class Programmer {
         this.mail = mail;
     }
 
-    @Column(name = "entryDate", nullable = false)
     public LocalDateTime getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entry_date) {
-        this.entryDate = entry_date;
+    public void setEntryDate(LocalDateTime entryDate) {
+        this.entryDate = entryDate;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "department", referencedColumnName = "id")
     public Department getDepartment() {
         return department;
     }
@@ -79,8 +76,6 @@ public class Programmer {
         this.department = department;
     }
 
-    @Basic
-    @Column(name = "salary", nullable = false)
     public double getSalary() {
         return salary;
     }
@@ -89,8 +84,6 @@ public class Programmer {
         this.salary = salary;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -99,20 +92,6 @@ public class Programmer {
         this.password = password;
     }
 
-//    @ElementCollection
-//    public Set<Technology> getTechnologies() {
-//        return technologies;
-//    }
-
-//    public void setTechnologies(Set<Technology> technologies) {
-//        this.technologies = technologies;
-//    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "project_assignment",
-            joinColumns = @JoinColumn(name = "id_programmer"),
-            inverseJoinColumns = @JoinColumn(name = "id_project"))
     public Set<Project> getActiveProjects() {
         return activeProjects;
     }
@@ -121,7 +100,6 @@ public class Programmer {
         this.activeProjects = activeProjects;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "programmer", cascade = CascadeType.DETACH)
     public Set<Commit> getCommits() {
         return commits;
     }
@@ -130,11 +108,6 @@ public class Programmer {
         this.commits = commits;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "issue_assignment",
-            joinColumns = @JoinColumn(name = "id_programmer"),
-            inverseJoinColumns = @JoinColumn(name = "id_issue"))
     public Set<Issue> getIssues() {
         return issues;
     }
@@ -143,7 +116,6 @@ public class Programmer {
         this.issues = issues;
     }
 
-    @OneToMany
     public Set<Login> getLogins() {
         return logins;
     }
@@ -151,9 +123,8 @@ public class Programmer {
     public void setLogins(Set<Login> logins) {
         this.logins = logins;
     }
-
     public String basicToString() {
-        return "Programmer{" +
+        return "ProgrammerDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
@@ -162,4 +133,23 @@ public class Programmer {
                 ", salary=" + salary +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProgrammerDTO that = (ProgrammerDTO) o;
+        return Double.compare(that.salary, salary) == 0
+                && Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(mail, that.mail)
+                && Objects.equals(entryDate, that.entryDate)
+                && Objects.equals(department, that.department)
+                && Objects.equals(password, that.password)
+                && Objects.equals(activeProjects, that.activeProjects)
+                && Objects.equals(commits, that.commits)
+                && Objects.equals(issues, that.issues)
+                && Objects.equals(logins, that.logins);
+    }
+
 }
