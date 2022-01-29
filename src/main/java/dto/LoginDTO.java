@@ -1,36 +1,29 @@
-package dao;
+package dto;
 
-import org.hibernate.annotations.GenericGenerator;
+import dao.Programmer;
 
-import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")
-})
-public class Login {
+public class LoginDTO {
     private String id;
 //    private Programmer programmer;
     private Date time;
     private UUID token;
     private boolean active;
 
-    public Login(String id, Date time, UUID token, boolean active) {
+    public LoginDTO(String id, Date time, UUID token, boolean active) {
         this.id = id;
+//        this.programmer = programmer;
         this.time = time;
         this.token = token;
         this.active = active;
     }
 
-    public Login() {
-
+    public LoginDTO() {
     }
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
     public String getId() {
         return id;
     }
@@ -38,8 +31,7 @@ public class Login {
     public void setId(String id) {
         this.id = id;
     }
-
-//    @ManyToOne
+//
 //    public Programmer getProgrammer() {
 //        return programmer;
 //    }
@@ -74,12 +66,24 @@ public class Login {
 
     @Override
     public String toString() {
-        return "Login{" +
-                "id='" + id + '\'' +
+        return "LoginDTO{" +
+                "id=" + id +
+//                ", programmer=" +programmer.basicToString()+
                 ", time=" + time +
                 ", token=" + token +
                 ", active=" + active +
-//                ", programmer=" +programmer.basicToString()+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoginDTO loginDTO = (LoginDTO) o;
+        return active == loginDTO.active
+                && Objects.equals(id, loginDTO.id)
+//                && Objects.equals(programmer.getId(), loginDTO.programmer.getId())
+                && Objects.equals(time, loginDTO.time)
+                && token.compareTo(loginDTO.getToken()) == 0;
     }
 }
