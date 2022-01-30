@@ -1,3 +1,4 @@
+import controller.LoginController;
 import dao.Login;
 import dto.LoginDTO;
 import manager.HibernateController;
@@ -6,6 +7,7 @@ import service.LoginService;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class DataAccessNOSL {
@@ -25,6 +27,7 @@ public class DataAccessNOSL {
     public void Login () {
         LoginRepository repo = new LoginRepository(HibernateController.getInstance());
         LoginService service = new LoginService(repo);
+        LoginController controller = LoginController.getInstance(service);
 
         LoginDTO login1 = new LoginDTO();
         login1.setTime(Date.from(Instant.now()));
@@ -36,15 +39,11 @@ public class DataAccessNOSL {
         login2.setActive(false);
         login2.setToken(UUID.randomUUID());
 
-        try {
-            login1 = service.insertLogin(login1);
-            login2 = service.insertLogin(login2);
+        login1 = controller.insertLogin(login1);
+        login2 = controller.insertLogin(login2);
 
-            repo.findAll().forEach(System.out::println);
-            if (service.deleteLogin(login1) != null) System.out.println("true");
-            if (service.deleteLogin(login2) != null) System.out.println("true");
-        }catch (Exception e) {
-            System.out.println("Error de ejecución: " + e.getMessage());
-        }
+        List<LoginDTO> logins = controller.getAllLogins();
+        logins.forEach(System.out::println);
+        logins.forEach(controller::deleteLogin);
     }
 }

@@ -68,7 +68,7 @@ public class LoginDTO {
     public String toString() {
         return "LoginDTO{" +
                 "id=" + id +
-                ", programmer=" +programmer.basicToString()+
+//                ", programmer=" +programmer.basicToString()+
                 ", time=" + time +
                 ", token=" + token +
                 ", active=" + active +
