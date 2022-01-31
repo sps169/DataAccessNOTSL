@@ -43,7 +43,7 @@ public class LoginController {
         try {
             return service.insertLogin(login);
         }catch (Exception ex) {
-            System.err.println("Error inserting login with id "+ login.getId() +" into database");
+            System.err.println("Error inserting login with id "+ login.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
