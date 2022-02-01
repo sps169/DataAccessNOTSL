@@ -9,7 +9,7 @@
         <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
 
 <!--        <class>dao.Department</class>-->
-<!--        <class>dao.Programmer</class>-->
+        <class>dao.Programmer</class>
 <!--        <class>dao.Project</class>-->
 <!--        <class>dao.Repository</class>-->
 <!--        <class>dao.Commit</class>-->
@@ -26,8 +26,8 @@
             <property name="hibernate.ogm.datastore.username" value="mongoadmin" />
             <property name="hibernate.ogm.datastore.password" value="mongopass" />
             <property name="hibernate.ogm.datastore.create_database" value="false" />
-            <property name="hibernate.ogm.datastore.document.association_storage" value="IN_ENTITY" />
-            <property name="hibernate.ogm.datastore.document.map_storage" value="AS_LIST" />
+<!--            <property name="hibernate.ogm.datastore.document.association_storage" value="IN_ENTITY" />-->
+<!--            <property name="hibernate.ogm.datastore.document.map_storage" value="AS_LIST" />-->
         </properties>
     </persistence-unit>
 </persistence>

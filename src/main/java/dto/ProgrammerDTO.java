@@ -1,40 +1,42 @@
 package dto;
 
 import dao.*;
+import lombok.AllArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+@AllArgsConstructor
 public class ProgrammerDTO {
     private String id;
     private String name;
     private String mail;
-    private LocalDateTime entryDate;
-    private Department department;
+    private Date entryDate;
+//    private Department department;
     private double salary;
     private String password;
     //    private Set<Technology> technologies;
-    private Set<Project> activeProjects;
-    private Set<Commit> commits;
-    private Set<Issue> issues;
+//    private Set<Project> activeProjects;
+//    private Set<Commit> commits;
+//    private Set<Issue> issues;
     private Set<Login> logins;
 
-    public ProgrammerDTO(String id, String name, String mail, LocalDateTime entryDate, Department department,
-                         double salary, String password, Set<Project> activeProjects, Set<Commit> commits,
-                         Set<Issue> issues, Set<Login> logins) {
-        this.id = id;
-        this.name = name;
-        this.mail = mail;
-        this.entryDate = entryDate;
-        this.department = department;
-        this.salary = salary;
-        this.password = password;
-        this.activeProjects = activeProjects;
-        this.commits = commits;
-        this.issues = issues;
-        this.logins = logins;
-    }
+//    public ProgrammerDTO(String id, String name, String mail, Date entryDate, Department department,
+//                         double salary, String password, Set<Project> activeProjects, Set<Commit> commits,
+//                         Set<Issue> issues, Set<Login> logins) {
+//        this.id = id;
+//        this.name = name;
+//        this.mail = mail;
+//        this.entryDate = entryDate;
+//        this.department = department;
+//        this.salary = salary;
+//        this.password = password;
+//        this.activeProjects = activeProjects;
+//        this.commits = commits;
+//        this.issues = issues;
+//        this.logins = logins;
+//    }
 
     public String getId() {
         return id;
@@ -60,21 +62,21 @@ public class ProgrammerDTO {
         this.mail = mail;
     }
 
-    public LocalDateTime getEntryDate() {
+    public Date getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entryDate) {
+    public void setEntryDate(Date entryDate) {
         this.entryDate = entryDate;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+//    public Department getDepartment() {
+//        return department;
+//    }
+//
+//    public void setDepartment(Department department) {
+//        this.department = department;
+//    }
 
     public double getSalary() {
         return salary;
@@ -92,29 +94,29 @@ public class ProgrammerDTO {
         this.password = password;
     }
 
-    public Set<Project> getActiveProjects() {
-        return activeProjects;
-    }
-
-    public void setActiveProjects(Set<Project> activeProjects) {
-        this.activeProjects = activeProjects;
-    }
-
-    public Set<Commit> getCommits() {
-        return commits;
-    }
-
-    public void setCommits(Set<Commit> commits) {
-        this.commits = commits;
-    }
-
-    public Set<Issue> getIssues() {
-        return issues;
-    }
-
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
-    }
+//    public Set<Project> getActiveProjects() {
+//        return activeProjects;
+//    }
+//
+//    public void setActiveProjects(Set<Project> activeProjects) {
+//        this.activeProjects = activeProjects;
+//    }
+//
+//    public Set<Commit> getCommits() {
+//        return commits;
+//    }
+//
+//    public void setCommits(Set<Commit> commits) {
+//        this.commits = commits;
+//    }
+//
+//    public Set<Issue> getIssues() {
+//        return issues;
+//    }
+//
+//    public void setIssues(Set<Issue> issues) {
+//        this.issues = issues;
+//    }
 
     public Set<Login> getLogins() {
         return logins;
@@ -123,13 +125,13 @@ public class ProgrammerDTO {
     public void setLogins(Set<Login> logins) {
         this.logins = logins;
     }
+
     public String basicToString() {
         return "ProgrammerDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
                 ", entryDate=" + entryDate +
-                ", department=" + department.basicToString() +
                 ", salary=" + salary +
                 '}';
     }
@@ -144,12 +146,13 @@ public class ProgrammerDTO {
                 && Objects.equals(name, that.name)
                 && Objects.equals(mail, that.mail)
                 && Objects.equals(entryDate, that.entryDate)
-                && Objects.equals(department, that.department)
+//                && Objects.equals(department, that.department)
                 && Objects.equals(password, that.password)
-                && Objects.equals(activeProjects, that.activeProjects)
-                && Objects.equals(commits, that.commits)
-                && Objects.equals(issues, that.issues)
-                && Objects.equals(logins, that.logins);
+//                && Objects.equals(activeProjects, that.activeProjects)
+//                && Objects.equals(commits, that.commits)
+//                && Objects.equals(issues, that.issues)
+                && Objects.equals(logins, that.logins)
+                ;
     }
 
 }

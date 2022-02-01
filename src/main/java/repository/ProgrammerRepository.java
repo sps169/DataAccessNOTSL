@@ -1,6 +1,5 @@
 package repository;
 
-import dao.Commit;
 import dao.Programmer;
 import manager.DBController;
 
@@ -79,7 +78,7 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Commit found = manager.find(Commit.class, programmer.getId());
+            Programmer found = manager.find(Programmer.class, programmer.getId());
             if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {
