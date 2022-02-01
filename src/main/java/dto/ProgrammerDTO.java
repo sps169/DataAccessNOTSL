@@ -126,13 +126,15 @@ public class ProgrammerDTO {
         this.logins = logins;
     }
 
-    public String basicToString() {
+    @Override
+    public String toString() {
         return "ProgrammerDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
                 ", entryDate=" + entryDate +
                 ", salary=" + salary +
+                ", logins=" + logins +
                 '}';
     }
 

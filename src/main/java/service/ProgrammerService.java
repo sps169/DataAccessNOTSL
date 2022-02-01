@@ -12,7 +12,7 @@ import java.util.List;
 public class ProgrammerService extends BaseService<Programmer, String, ProgrammerRepository> {
 
     private ProgrammerMapper mapper = new ProgrammerMapper();
-    protected ProgrammerService(ProgrammerRepository repository) {
+    public ProgrammerService(ProgrammerRepository repository) {
         super(repository);
     }
 

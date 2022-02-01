@@ -29,8 +29,6 @@ public class Login {
     }
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
     public String getId() {
         return id;
     }
@@ -72,7 +70,7 @@ public class Login {
         this.active = active;
     }
 
-    public String basicToString() {
+    public String toString() {
         return "Login{" +
                 "id='" + id + '\'' +
                 ", time=" + time +

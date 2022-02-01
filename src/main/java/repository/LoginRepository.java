@@ -43,7 +43,7 @@ public class LoginRepository implements CRUDRepository<Login, String>{
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            login.setId(null);
+//            login.setId(null);
             manager.persist(login);
             manager.getTransaction().commit();
             return login;

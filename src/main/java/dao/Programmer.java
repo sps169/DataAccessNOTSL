@@ -30,8 +30,6 @@ public class Programmer {
     private Set<Login> logins;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
     public String getId() {
         return id;
     }
@@ -133,7 +131,7 @@ public class Programmer {
 //    public void setIssues(Set<Issue> issues) {
 //        this.issues = issues;
 //    }
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "programmer")
     public Set<Login> getLogins() {
         return logins;
     }

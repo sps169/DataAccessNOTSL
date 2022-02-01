@@ -39,7 +39,7 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            programmer.setId(null);
+//            programmer.setId(null);
             manager.persist(programmer);
             manager.getTransaction().commit();
             return programmer;
