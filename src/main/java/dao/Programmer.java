@@ -133,6 +133,7 @@ public class Programmer {
 //    public void setIssues(Set<Issue> issues) {
 //        this.issues = issues;
 //    }
+    @OneToMany
     public Set<Login> getLogins() {
         return logins;
     }
