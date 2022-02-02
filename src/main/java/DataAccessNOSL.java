@@ -1,9 +1,7 @@
 import controller.LoginController;
 import controller.ProgrammerController;
-import dao.Login;
-import dao.Programmer;
-import dto.LoginDTO;
-import dto.ProgrammerDTO;
+import dao.*;
+import dto.*;
 import manager.HibernateController;
 import mapper.LoginMapper;
 import mapper.ProgrammerMapper;
@@ -13,6 +11,7 @@ import service.LoginService;
 import service.ProgrammerService;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DataAccessNOSL {
@@ -105,4 +104,114 @@ public class DataAccessNOSL {
             ex.printStackTrace();
         }
     }
+    public void Department(){
+
+        DepartmentDTO deparment1 = new DepartmentDTO(
+                UUID.randomUUID().toString(),
+                "Microservicios",
+                150000L,
+                new HashSet<Project>(),
+                new HashSet<Project>(),
+                new Programmer(),
+                new HashSet<Programmer>()
+                );
+
+        DepartmentDTO deparment2 = new DepartmentDTO(
+                UUID.randomUUID().toString(),
+                "Desarrollos Oscuros",
+                250000L,
+                new HashSet<Project>(),
+                new HashSet<Project>(),
+                new Programmer(),
+                new HashSet<Programmer>()
+        );
+    }
+    public void Commit(){
+
+        CommitDTO commit1 = new CommitDTO(
+                UUID.randomUUID().toString(),
+                "He parcheado la API Rest",
+                "todo el dia parcheando como un señor",
+                LocalDateTime.now(),
+                new Repository(),
+                new Issue(),
+                new Project(),
+                new Programmer()
+        );
+        CommitDTO commit2 = new CommitDTO(
+                UUID.randomUUID().toString(),
+                "Tirado desde punto de restauracion",
+                "lo saque de un foro ;)",
+                LocalDateTime.now(),
+                new Repository(),
+                new Issue(),
+                new Project(),
+                new Programmer()
+        );
+    }
+    public void Issue(){
+
+        IssueDTO issue1 = new IssueDTO(
+                UUID.randomUUID().toString(),
+                "Nos ha petado la API Rest gente",
+                "Vamo a ver que habeis tocado?",
+                LocalDateTime.now(),
+                new HashSet<Programmer>(),
+                new Project(),
+                new Repository()
+        );
+
+        IssueDTO issue2 = new IssueDTO(
+                UUID.randomUUID().toString(),
+                "Error al actualizar el windows",
+                "microsoft nos la ha vuelto a jugar",
+                LocalDateTime.now(),
+                new HashSet<Programmer>(),
+                new Project(),
+                new Repository()
+        );
+    }
+    public void Project(){
+
+        ProjectDTO project1 = new ProjectDTO(
+                UUID.randomUUID().toString(),
+                "SkyNet Project",
+                150000L,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                new Repository(),
+                new Programmer()
+        );
+
+        ProjectDTO project2 = new ProjectDTO(
+                UUID.randomUUID().toString(),
+                "BigGnome Project",
+                250000L,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                new Repository(),
+                new Programmer()
+        );
+    }
+    public void Repository(){
+
+        RepositoryDTO repository1 = new RepositoryDTO(
+                UUID.randomUUID().toString(),
+                "Repo el Reponedor",
+                LocalDateTime.now(),
+                new Project(),
+                new HashSet<Commit>(),
+                new HashSet<Issue>()
+        );
+        RepositoryDTO repository2 = new RepositoryDTO(
+                UUID.randomUUID().toString(),
+                "Repo la Reposteria",
+                LocalDateTime.now(),
+                new Project(),
+                new HashSet<Commit>(),
+                new HashSet<Issue>()
+        );
+    }
+
+
 }
