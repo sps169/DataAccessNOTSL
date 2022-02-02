@@ -73,5 +73,7 @@ public class ProgrammerService extends BaseService<Programmer, String, Programme
                     .anyMatch(d -> d.getBoss().getId().equals(programmerDTO.getId())))
                 isCorrect = false;
         }
+        if (isCorrect) return programmerDTO;
+        else return null;
     }
 }
