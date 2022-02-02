@@ -1,19 +1,15 @@
 package service;
 
 import dao.Department;
-import dao.Programmer;
 import dto.DepartmentDTO;
-import dto.ProgrammerDTO;
 import mapper.DepartmentMapper;
-import mapper.ProgrammerMapper;
 import repository.DepartmentRepository;
-import repository.ProgrammerRepository;
 
 import java.util.List;
 
 public class DepartmentService extends BaseService<Department, String, DepartmentRepository>{
 
-    private DepartmentMapper mapper = new DepartmentMapper();
+    private final DepartmentMapper mapper = new DepartmentMapper();
     protected DepartmentService(DepartmentRepository repository) {
         super(repository);
     }
@@ -33,7 +29,7 @@ public class DepartmentService extends BaseService<Department, String, Departmen
         }else {
             throw new Exception(
                     "Error inserting department with id " + departmentDTO.getId()+" " +
-                            ": Programmer doesn't meet requirements"
+                            ": Department doesn't meet requirements"
             );
 
         }
@@ -45,8 +41,8 @@ public class DepartmentService extends BaseService<Department, String, Departmen
             return mapper.toDTO(department);
         }else {
             throw new Exception(
-                    "Error updating programmer with id " + departmentDTO.getId()+" " +
-                            ": Programmer doesn't meet requirements"
+                    "Error updating department with id " + departmentDTO.getId()+" " +
+                            ": Department doesn't meet requirements"
             );
         }
     }
@@ -58,6 +54,12 @@ public class DepartmentService extends BaseService<Department, String, Departmen
 
     //todo
     private DepartmentDTO checkDepartment(DepartmentDTO departmentDTO) {
-        return departmentDTO;
+        boolean isCorrect = true;
+        if (!departmentDTO.getBoss().getActiveProjects().isEmpty())
+            isCorrect = false;
+        if (isCorrect)
+            return departmentDTO;
+        else
+            return null;
     }
 }

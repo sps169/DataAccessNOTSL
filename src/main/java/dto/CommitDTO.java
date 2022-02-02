@@ -1,5 +1,6 @@
 package dto;
 
+import dao.Issue;
 import dao.Programmer;
 import dao.Project;
 import dao.Repository;
@@ -13,15 +14,17 @@ public class CommitDTO {
     private String text;
     private LocalDateTime date;
     private Repository repository;
+    private Issue issue;
     private Project project;
     private Programmer programmer;
 
-    public CommitDTO(String id, String title, String text, LocalDateTime date, Repository repository, Project project, Programmer programmer) {
+    public CommitDTO(String id, String title, String text, LocalDateTime date, Repository repository, Issue issue, Project project, Programmer programmer) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.date = date;
         this.repository = repository;
+        this.issue = issue;
         this.project = project;
         this.programmer = programmer;
     }
@@ -66,6 +69,14 @@ public class CommitDTO {
         this.repository = repository;
     }
 
+    public Issue getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Issue issue) {
+        this.issue = issue;
+    }
+
     public Project getProject() {
         return project;
     }
@@ -89,9 +100,10 @@ public class CommitDTO {
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", date=" + date +
-                ", repository=" + repository.toString() +
-                ", project=" + project.toString() +
-                ", programmer=" + programmer.basicToString() +
+                ", repository=" + repository +
+                ", issue=" + issue +
+                ", project=" + project +
+                ", programmer=" + programmer +
                 '}';
     }
 

@@ -19,6 +19,7 @@ public class Commit {
     private String text;
     private LocalDateTime date;
     private Repository repository;
+    private Issue issue;
     private Project project;
     private Programmer programmer;
 
@@ -72,6 +73,15 @@ public class Commit {
         this.repository = repository;
     }
 
+    @OneToOne
+    public Issue getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Issue issue) {
+        this.issue = issue;
+    }
+
     @ManyToOne
     public Project getProject() {
         return project;
@@ -90,15 +100,17 @@ public class Commit {
         this.programmer = programmer;
     }
 
-    public String basicToString() {
+    @Override
+    public String toString() {
         return "Commit{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", date=" + date +
-                ", repository=" + repository.basicToString() +
-                ", project=" + project.basicToString() +
-                ", programmer=" + programmer.basicToString() +
+                ", repository=" + repository +
+                ", issue=" + issue +
+                ", project=" + project +
+                ", programmer=" + programmer +
                 '}';
     }
 }
