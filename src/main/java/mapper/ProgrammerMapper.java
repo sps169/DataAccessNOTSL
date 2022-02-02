@@ -11,12 +11,13 @@ public class ProgrammerMapper extends BaseMapper<Programmer, ProgrammerDTO> {
                 item.getName(),
                 item.getMail(),
                 item.getEntryDate(),
-//                item.getDepartment(),
+                item.getDepartment(),
                 item.getSalary(),
                 item.getPassword(),
-//                item.getActiveProjects(),
-//                item.getCommits(),
-//                item.getIssues(),
+                item.getTechnologies(),
+                item.getActiveProjects(),
+                item.getCommits(),
+                item.getIssues(),
                 item.getLogins()
                 );
     }
@@ -28,12 +29,13 @@ public class ProgrammerMapper extends BaseMapper<Programmer, ProgrammerDTO> {
                 item.getName(),
                 item.getMail(),
                 item.getEntryDate(),
-//                item.getDepartment(),
+                item.getDepartment(),
                 item.getSalary(),
                 item.getPassword(),
-//                item.getActiveProjects(),
-//                item.getCommits(),
-//                item.getIssues(),
+                item.getTechnologies(),
+                item.getActiveProjects(),
+                item.getCommits(),
+                item.getIssues(),
                 item.getLogins()
                 );
     }

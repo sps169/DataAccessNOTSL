@@ -38,29 +38,29 @@ public class ProgrammerController {
         }
     }
 
-    public ProgrammerDTO insertProgrammer(ProgrammerDTO login) {
+    public ProgrammerDTO insertProgrammer(ProgrammerDTO programmerDTO) {
         try {
-            return service.insertProgrammer(login);
+            return service.insertProgrammer(programmerDTO);
         }catch (Exception ex) {
-            System.err.println("Error inserting programmer with id "+ login.getId() +" into database: " + ex.getMessage());
+            System.err.println("Error inserting programmer with id "+ programmerDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public ProgrammerDTO updateProgrammer(ProgrammerDTO login) {
+    public ProgrammerDTO updateProgrammer(ProgrammerDTO programmerDTO) {
         try {
-            return service.updateProgrammer(login);
+            return service.updateProgrammer(programmerDTO);
         }catch (Exception ex) {
-            System.err.println("Error updating programmer with id"+ login.getId());
+            System.err.println("Error updating programmer with id"+ programmerDTO.getId());
             return null;
         }
     }
 
-    public ProgrammerDTO deleteProgrammer(ProgrammerDTO login) {
+    public ProgrammerDTO deleteProgrammer(ProgrammerDTO programmerDTO) {
         try {
-            return service.deleteProgrammer(login);
+            return service.deleteProgrammer(programmerDTO);
         }catch (Exception ex) {
-            System.err.println("Error updating programmer with id"+ login.getId());
+            System.err.println("Error updating programmer with id"+ programmerDTO.getId());
             return null;
         }
     }
