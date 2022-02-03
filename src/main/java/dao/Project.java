@@ -1,5 +1,6 @@
 package dao;
 
+import dto.ProjectDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,16 +21,13 @@ public class Project {
     private String id;
     private String name;
     private double budget;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-//    private Set<Technology> technologies;
+    private Date startDate;
+    private Date endDate;
+    private Set<Technology> technologies;
     private Repository repository;
     private Programmer boss;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
     public String getId() {
         return id;
     }
@@ -57,33 +57,33 @@ public class Project {
     }
 
     @Column(name = "start_date", nullable = false)
-    public LocalDateTime getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
     @Column(name = "end_date", nullable = false)
-    public LocalDateTime getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-//
-//    @ElementCollection
-//    public Set<Technology> getTechnologies() {
-//        return technologies;
-//    }
-//
-//    public void setTechnologies(Set<Technology> technologies) {
-//        this.technologies = technologies;
-//    }
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ElementCollection
+    public Set<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(Set<Technology> technologies) {
+        this.technologies = technologies;
+    }
+
+    @OneToOne
     public Repository getRepository() {
         return repository;
     }
@@ -92,7 +92,7 @@ public class Project {
         this.repository = repository;
     }
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.DETACH, orphanRemoval = false)
     public Programmer getBoss() {
         return boss;
     }
@@ -111,5 +111,14 @@ public class Project {
                 ", repository=" + repository.basicToString() +
                 ", boss=" + boss.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project that = (Project) o;
+        return Objects.equals(id, that.id);
+
     }
 }

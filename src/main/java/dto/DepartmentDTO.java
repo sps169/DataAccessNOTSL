@@ -97,13 +97,7 @@ public class DepartmentDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DepartmentDTO that = (DepartmentDTO) o;
-        return Double.compare(that.budget, budget) == 0
-                && Objects.equals(id, that.id)
-                && Objects.equals(name, that.name)
-                && Objects.equals(ongoingProjects, that.ongoingProjects)
-                && Objects.equals(endedProjects, that.endedProjects)
-                && Objects.equals(boss, that.boss)
-                && Objects.equals(historicBosses, that.historicBosses);
+        return Objects.equals(id, that.id);
     }
 
 }

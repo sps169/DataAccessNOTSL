@@ -1,12 +1,17 @@
 package dao;
 
+import dto.CommitDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,16 +22,13 @@ public class Commit {
     private String id;
     private String title;
     private String text;
-    private LocalDateTime date;
+    private Date date;
     private Repository repository;
     private Issue issue;
     private Project project;
     private Programmer programmer;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
     public String getId() {
         return id;
     }
@@ -56,11 +58,11 @@ public class Commit {
     }
 
     @Column(nullable = false)
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -112,5 +114,13 @@ public class Commit {
                 ", project=" + project +
                 ", programmer=" + programmer +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Commit commit = (Commit) o;
+        return Objects.equals(id, commit.id);
     }
 }

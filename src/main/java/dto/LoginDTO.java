@@ -80,10 +80,6 @@ public class LoginDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoginDTO loginDTO = (LoginDTO) o;
-        return active == loginDTO.active
-                && Objects.equals(id, loginDTO.id)
-                && Objects.equals(programmer.getId(), loginDTO.programmer.getId())
-                && Objects.equals(time, loginDTO.time)
-                && token.compareTo(loginDTO.getToken()) == 0;
+        return Objects.equals(id, loginDTO.id);
     }
 }

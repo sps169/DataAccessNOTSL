@@ -1,12 +1,16 @@
 package dao;
 
+import dto.IssueDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,15 +22,12 @@ public class Issue {
     private String id;
     private String title;
     private String text;
-    private LocalDateTime date;
+    private Date date;
     private Set<Programmer> programmers;
     private Project project;
     private Repository repository;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
     public String getId() {
         return id;
     }
@@ -56,15 +57,15 @@ public class Issue {
     }
 
     @Column(nullable = false)
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Programmer> getProgrammers() {
         return programmers;
     }
@@ -101,5 +102,13 @@ public class Issue {
                 ", project=" + project.basicToString() +
                 ", repository=" + repository.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Issue issue = (Issue) o;
+        return Objects.equals(id, issue.id);
     }
 }

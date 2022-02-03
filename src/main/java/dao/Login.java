@@ -1,9 +1,11 @@
 package dao;
 
+import dto.LoginDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 @Entity
 @NamedQueries({
@@ -78,5 +80,13 @@ public class Login {
                 ", active=" + active +
                 ", programmer=" +programmer.basicToString()+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Login login = (Login) o;
+        return Objects.equals(id, login.id);
     }
 }

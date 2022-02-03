@@ -1,10 +1,12 @@
 package dao;
 
+import dto.ProgrammerDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -95,7 +97,7 @@ public class Programmer {
         this.technologies = technologies;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Project> getActiveProjects() {
         return activeProjects;
     }
@@ -113,7 +115,7 @@ public class Programmer {
         this.commits = commits;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Issue> getIssues() {
         return issues;
     }
@@ -138,5 +140,13 @@ public class Programmer {
                 ", entryDate=" + entryDate +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Programmer that = (Programmer) o;
+        return Objects.equals(id, that.id);
     }
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import dto.RepositoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,15 +20,12 @@ import java.util.Set;
 public class Repository {
     private String id;
     private String name;
-    private LocalDateTime creationDate;
+    private Date creationDate;
     private Project project;
     private Set<Commit> commits;
     private Set<Issue> issues;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
     public String getId() {
         return id;
     }
@@ -45,11 +45,11 @@ public class Repository {
     }
 
     @Column(name = "creation_date", nullable = false)
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -89,5 +89,13 @@ public class Repository {
                 ", creationDate=" + creationDate +
                 ", project=" + project.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Repository that = (Repository) o;
+        return Objects.equals(id, that.id);
     }
 }

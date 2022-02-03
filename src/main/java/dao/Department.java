@@ -1,11 +1,13 @@
 package dao;
 
+import dto.DepartmentDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,9 +25,6 @@ public class Department {
     private Set<Programmer> historicBosses;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    @Type(type = "objectid")
     public String getId() {
         return id;
     }
@@ -72,7 +71,7 @@ public class Department {
         this.endedProjects = endedProjects;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     public Programmer getBoss() {
         return boss;
     }
@@ -81,7 +80,7 @@ public class Department {
         this.boss = boss;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Programmer> getHistoricBosses() {
         return historicBosses;
     }
@@ -99,5 +98,13 @@ public class Department {
                 ", endedProjects=" + endedProjects +
                 ", boss=" + boss.basicToString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(id, that.id);
     }
 }
