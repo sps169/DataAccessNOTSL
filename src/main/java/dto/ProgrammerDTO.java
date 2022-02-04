@@ -13,6 +13,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+/**
+ * Clase POJO de transporte de datos para programmer. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class ProgrammerDTO {
     private String id;
     private String name;
@@ -26,7 +30,10 @@ public class ProgrammerDTO {
     private Set<Commit> commits;
     private Set<Issue> issues;
     private Set<Login> logins;
-
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -45,7 +52,11 @@ public class ProgrammerDTO {
                 ", logins=" + logins +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

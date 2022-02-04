@@ -1,7 +1,5 @@
 package dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Commit;
 import dao.Issue;
@@ -10,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -18,6 +15,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+
+/**
+ * Clase POJO de transporte de datos para repository. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class RepositoryDTO {
     private String id;
     private String name;
@@ -26,6 +28,10 @@ public class RepositoryDTO {
     private Set<Commit> commits;
     private Set<Issue> issues;
 
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -39,6 +45,11 @@ public class RepositoryDTO {
                 '}';
     }
 
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

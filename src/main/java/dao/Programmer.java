@@ -1,6 +1,5 @@
 package dao;
 
-import dto.ProgrammerDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +7,10 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
-
+/**
+ * Clase POJO que modela un Programmer. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
@@ -131,7 +133,10 @@ public class Programmer {
     public void setLogins(Set<Login> logins) {
         this.logins = logins;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "{" +
@@ -142,7 +147,10 @@ public class Programmer {
                 ", salary:" + salary +
                 '}';
     }
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Programmer{" +
                 "id:'" + id + '\'' +
@@ -159,7 +167,11 @@ public class Programmer {
                 ", logins:" + logins +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

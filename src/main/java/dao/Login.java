@@ -1,16 +1,18 @@
 package dao;
 
-import dto.LoginDTO;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
+/**
+ * Clase POJO que modela un Login. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")
 })
+
 public class Login {
     private String id;
     private Programmer programmer;
@@ -71,7 +73,10 @@ public class Login {
     public void setActive(boolean active) {
         this.active = active;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "{" +
@@ -82,7 +87,10 @@ public class Login {
                 '}';
     }
 
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Login{" +
                 "id:'" + id + '\'' +
@@ -92,7 +100,11 @@ public class Login {
                 ", active:" + active +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

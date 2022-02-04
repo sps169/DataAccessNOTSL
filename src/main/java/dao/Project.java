@@ -1,16 +1,15 @@
 package dao;
 
-import dto.ProjectDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+/**
+ * Clase POJO que modela un Project. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -100,7 +99,10 @@ public class Project {
     public void setBoss(Programmer boss) {
         this.boss = boss;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "{" +
@@ -112,7 +114,10 @@ public class Project {
                 '}';
     }
 
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Project{" +
                 "id:'" + id + '\'' +
@@ -125,7 +130,11 @@ public class Project {
                 ", boss:" + boss +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

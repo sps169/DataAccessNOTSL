@@ -1,16 +1,15 @@
 package dao;
 
-import dto.RepositoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+/**
+ * Clase POJO que modela un Repository. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -80,7 +79,10 @@ public class Repository {
     public void setIssues(Set<Issue> issues) {
         this.issues = issues;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "{" +
@@ -89,7 +91,10 @@ public class Repository {
                 ", creationDate:" + creationDate +
                 '}';
     }
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Repository{" +
                 "id:'" + id + '\'' +
@@ -100,7 +105,11 @@ public class Repository {
                 ", issues:" + issues +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

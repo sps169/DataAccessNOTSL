@@ -1,13 +1,15 @@
 package dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Programmer;
 
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
-
+/**
+ * Clase POJO de transporte de datos para login. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class LoginDTO {
     private String id;
     private Programmer programmer;
@@ -65,7 +67,10 @@ public class LoginDTO {
     public void setActive(boolean active) {
         this.active = active;
     }
-
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -77,7 +82,11 @@ public class LoginDTO {
                 ", active=" + active +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
