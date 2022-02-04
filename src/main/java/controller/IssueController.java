@@ -19,6 +19,10 @@ public class IssueController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de IssueController
+     */
     public static IssueController getInstance(IssueService service) {
         if (controller == null) {
             controller = new IssueController(service);

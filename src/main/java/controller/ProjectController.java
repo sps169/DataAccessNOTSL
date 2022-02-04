@@ -19,6 +19,10 @@ public class ProjectController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de ProjectController
+     */
     public static ProjectController getInstance(ProjectService service) {
         if (controller == null) {
             controller = new ProjectController(service);

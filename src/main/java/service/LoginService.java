@@ -17,6 +17,10 @@ import java.util.List;
 public class LoginService extends BaseService<Login, String, LoginRepository>{
     private LoginMapper mapper = new LoginMapper();
 
+    /**
+     * Constructor con dependencia de login
+     * @param repository inyección de dependencia de login
+     */
     public LoginService(LoginRepository repository) {
         super(repository);
     }

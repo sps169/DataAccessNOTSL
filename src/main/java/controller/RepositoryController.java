@@ -19,6 +19,10 @@ public class RepositoryController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de RepositoryController
+     */
     public static RepositoryController getInstance(RepositoryService service) {
         if (controller == null) {
             controller = new RepositoryController(service);

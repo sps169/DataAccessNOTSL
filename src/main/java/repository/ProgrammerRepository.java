@@ -8,13 +8,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * Repositorio para la entidad programmer. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
     private final DBController controller;
 
+    /**
+     * Constructor con dependencia de DBController
+     * @param controller inyección de dependencia de DBController
+     */
     public ProgrammerRepository(DBController controller){
         this.controller = controller;
     }
 
+    /**
+     * Obtener todas las entidades programmer
+     * @return Lista con todos los programmer
+     */
     @Override
     public List<Programmer> findAll() throws Exception {
         controller.open();
@@ -25,6 +37,12 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         return programmerList;
     }
 
+    /**
+     * Obtener entidad programmer segun la id
+     * @param id String id de programmer
+     * @return Commit
+     * @throws Exception en caso de no encontrar el programmer
+     */
     @Override
     public Programmer getById(String id) throws Exception {
         controller.open();
@@ -34,6 +52,12 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         return programmer;
     }
 
+    /**
+     * inserta un programmer en la base de datos
+     * @param programmer a insertar
+     * @return programmer si ha insertado correctamente
+     * @throws Exception si la insercion falla
+     */
     @Override
     public Programmer save(Programmer programmer) throws Exception {
         controller.open();
@@ -53,22 +77,12 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         }
     }
 
-    public Programmer saveInSession(Programmer programmer) throws Exception {
-        try {
-            EntityManager manager = controller.getManager();
-            manager.getTransaction().begin();
-            manager.persist(programmer);
-            manager.getTransaction().commit();
-            return programmer;
-        }catch (Exception ex) {
-            throw new Exception("Error al insertar Programmer "+ ex.getMessage());
-        }finally {
-            if (controller.getTransaction().isActive()) {
-                controller.getTransaction().rollback();
-            }
-        }
-    }
-
+    /**
+     * actualiza un programmer en la base de datos
+     * @param programmer a actualizar
+     * @return programmer si ha actualizado correctamente
+     * @throws Exception si la actualizacion falla
+     */
     @Override
     public Programmer update(Programmer programmer) throws Exception {
         controller.open();
@@ -88,6 +102,12 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         return programmer;
     }
 
+    /**
+     * elimina un programmer en la base de datos
+     * @param programmer a eliminar
+     * @return programmer si ha eliminado correctamente
+     * @throws Exception si la eliminacion falla
+     */
     @Override
     public Programmer delete(Programmer programmer) throws Exception {
         controller.open();

@@ -19,6 +19,10 @@ public class ProgrammerController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de ProgrammerController
+     */
     public static ProgrammerController getInstance(ProgrammerService service) {
         if (controller == null) {
             controller = new ProgrammerController(service);

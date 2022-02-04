@@ -10,13 +10,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * Repositorio para la entidad project. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class ProjectRepository implements CRUDRepository<Project,String> {
     private final DBController controller;
 
+    /**
+     * Constructor con dependencia de DBController
+     * @param controller inyección de dependencia de DBController
+     */
     public ProjectRepository(DBController controller){
         this.controller = controller;
     }
 
+    /**
+     * Obtener todas las entidades project
+     * @return Lista con todos los project
+     */
     @Override
     public List<Project> findAll() throws Exception {
         controller.open();
@@ -27,6 +39,12 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
         return projectList;
     }
 
+    /**
+     * Obtener entidad project segun la id
+     * @param id String id de project
+     * @return Commit
+     * @throws Exception en caso de no encontrar el project
+     */
     @Override
     public Project getById(String id) throws Exception {
         controller.open();
@@ -36,6 +54,12 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
         return project;
     }
 
+    /**
+     * inserta un project en la base de datos
+     * @param project a insertar
+     * @return project si ha insertado correctamente
+     * @throws Exception si la insercion falla
+     */
     @Override
     public Project save(Project project) throws Exception {
         controller.open();
@@ -54,23 +78,13 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
             controller.close();
         }
     }
-
-    public Project saveInSession(Project project) throws Exception {
-        try {
-            EntityManager manager = controller.getManager();
-            manager.getTransaction().begin();
-            manager.persist(project);
-            manager.getTransaction().commit();
-            return project;
-        }catch (Exception ex) {
-            throw new Exception("Error al insertar Project "+ ex.getMessage());
-        }finally {
-            if (controller.getTransaction().isActive()) {
-                controller.getTransaction().rollback();
-            }
-        }
-    }
-
+    
+    /**
+     * actualiza un project en la base de datos
+     * @param project a actualizar
+     * @return project si ha actualizado correctamente
+     * @throws Exception si la actualizacion falla
+     */
     @Override
     public Project update(Project project) throws Exception {
         controller.open();
@@ -90,6 +104,12 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
         return project;
     }
 
+    /**
+     * elimina un project en la base de datos
+     * @param project a eliminar
+     * @return project si ha eliminado correctamente
+     * @throws Exception si la eliminacion falla
+     */
     @Override
     public Project delete(Project project) throws Exception {
         controller.open();

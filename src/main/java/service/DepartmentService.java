@@ -22,6 +22,11 @@ import java.util.Set;
 public class DepartmentService extends BaseService<Department, String, DepartmentRepository>{
 
     private final DepartmentMapper mapper = new DepartmentMapper();
+
+    /**
+     * Constructor con dependencia de departamento
+     * @param repository inyección de dependencia de departamento
+     */
     public DepartmentService(DepartmentRepository repository) {
         super(repository);
     }

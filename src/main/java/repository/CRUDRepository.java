@@ -2,6 +2,12 @@ package repository;
 
 import java.util.List;
 
+/**
+ * Interfaz que obliga a implementar las operaciones CRUD
+ * retornando el objeto resultante de la operacion
+ * @param <T> tipo de objeto
+ * @param <ID> tipo de id del objeto
+ */
 public interface CRUDRepository<T, ID> {
 
     // Operaciones CRUD
