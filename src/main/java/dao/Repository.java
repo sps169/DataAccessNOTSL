@@ -1,25 +1,35 @@
 package dao;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
-
+/**
+ * Clase POJO que modela un Repository. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Repository.findAll", query = "SELECT l FROM Repository l")
+})
 public class Repository {
-    private UUID id;
+    private String id;
     private String name;
-    private LocalDateTime creationDate;
+    private Date creationDate;
     private Project project;
     private Set<Commit> commits;
     private Set<Issue> issues;
 
     @Id
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,11 +44,11 @@ public class Repository {
     }
 
     @Column(name = "creation_date", nullable = false)
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -68,5 +78,43 @@ public class Repository {
 
     public void setIssues(Set<Issue> issues) {
         this.issues = issues;
+    }
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", creationDate:" + creationDate +
+                '}';
+    }
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
+    public String fullToString() {
+        return "Repository{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", creationDate:" + creationDate +
+                ", project:" + project +
+                ", commits:" + commits +
+                ", issues:" + issues +
+                '}';
+    }
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Repository that = (Repository) o;
+        return Objects.equals(id, that.id);
     }
 }

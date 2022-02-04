@@ -1,16 +1,27 @@
 package dao;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Set;
+/**
+ * Clase POJO que modela un Programmer. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
+@NoArgsConstructor
+@AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Programmer.findAll", query = "SELECT l FROM Programmer l")
+})
 @Entity
-@Embeddable
 public class Programmer {
-    private UUID id;
+    private String id;
     private String name;
-    private LocalDateTime entryDate;
+    private String mail;
+    private Date entryDate;
     private Department department;
     private double salary;
     private String password;
@@ -18,18 +29,17 @@ public class Programmer {
     private Set<Project> activeProjects;
     private Set<Commit> commits;
     private Set<Issue> issues;
+    private Set<Login> logins;
 
     @Id
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -38,12 +48,19 @@ public class Programmer {
         this.name = nombre;
     }
 
-    @Column(name = "entryDate", nullable = false)
-    public LocalDateTime getEntryDate() {
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Date getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entry_date) {
+    public void setEntryDate(Date entry_date) {
         this.entryDate = entry_date;
     }
 
@@ -57,8 +74,6 @@ public class Programmer {
         this.department = department;
     }
 
-    @Basic
-    @Column(name = "salary", nullable = false)
     public double getSalary() {
         return salary;
     }
@@ -67,8 +82,6 @@ public class Programmer {
         this.salary = salary;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -77,7 +90,7 @@ public class Programmer {
         this.password = password;
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Technology> getTechnologies() {
         return technologies;
     }
@@ -86,11 +99,7 @@ public class Programmer {
         this.technologies = technologies;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "project_assignment",
-            joinColumns = @JoinColumn(name = "id_programmer"),
-            inverseJoinColumns = @JoinColumn(name = "id_project"))
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Project> getActiveProjects() {
         return activeProjects;
     }
@@ -108,16 +117,66 @@ public class Programmer {
         this.commits = commits;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "issue_assignment",
-            joinColumns = @JoinColumn(name = "id_programmer"),
-            inverseJoinColumns = @JoinColumn(name = "id_issue"))
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Issue> getIssues() {
         return issues;
     }
 
     public void setIssues(Set<Issue> issues) {
         this.issues = issues;
+    }
+    @OneToMany(fetch = FetchType.EAGER)
+    public Set<Login> getLogins() {
+        return logins;
+    }
+
+    public void setLogins(Set<Login> logins) {
+        this.logins = logins;
+    }
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", mail:'" + mail + '\'' +
+                ", entryDate:" + entryDate +
+                ", salary:" + salary +
+                '}';
+    }
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
+    public String fullToString() {
+        return "Programmer{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", mail:'" + mail + '\'' +
+                ", entryDate:" + entryDate +
+                ", department:" + department +
+                ", salary:" + salary +
+                ", password:'" + password + '\'' +
+                ", technologies:" + technologies +
+                ", activeProjects:" + activeProjects +
+                ", commits:" + commits +
+                ", issues:" + issues +
+                ", logins:" + logins +
+                '}';
+    }
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Programmer that = (Programmer) o;
+        return Objects.equals(id, that.id);
     }
 }
