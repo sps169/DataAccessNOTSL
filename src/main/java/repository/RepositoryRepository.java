@@ -10,6 +10,7 @@ import dao.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.UUID;
 
 public class RepositoryRepository implements CRUDRepository<Repository,String>{
     private final DBController controller;
@@ -43,7 +44,6 @@ public class RepositoryRepository implements CRUDRepository<Repository,String>{
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            repository.setId(null);
             manager.persist(repository);
             manager.getTransaction().commit();
             return repository;
@@ -54,6 +54,22 @@ public class RepositoryRepository implements CRUDRepository<Repository,String>{
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Repository saveInSession(Repository repository) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(repository);
+            manager.getTransaction().commit();
+            return repository;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Repository "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 
@@ -82,7 +98,7 @@ public class RepositoryRepository implements CRUDRepository<Repository,String>{
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Commit found = manager.find(Commit.class, repository.getId());
+            Repository found = manager.find(Repository.class, repository.getId());
             if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {

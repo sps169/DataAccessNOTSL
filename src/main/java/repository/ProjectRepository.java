@@ -3,6 +3,7 @@ package repository;
 import dao.Commit;
 import dao.Programmer;
 import dao.Project;
+import dao.Repository;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
@@ -41,7 +42,6 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            project.setId(null);
             manager.persist(project);
             manager.getTransaction().commit();
             return project;
@@ -52,6 +52,22 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Project saveInSession(Project project) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(project);
+            manager.getTransaction().commit();
+            return project;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Project "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 
@@ -80,7 +96,7 @@ public class ProjectRepository implements CRUDRepository<Project,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Commit found = manager.find(Commit.class, project.getId());
+            Project found = manager.find(Project.class, project.getId());
             if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {

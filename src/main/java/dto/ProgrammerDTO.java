@@ -1,5 +1,6 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,13 +28,20 @@ public class ProgrammerDTO {
     private Set<Login> logins;
 
     @Override
+    @JsonValue
     public String toString() {
-        return "ProgrammerDTO{" +
+        return "{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
                 ", entryDate=" + entryDate +
+                ", department=" + department +
                 ", salary=" + salary +
+                ", password='" + password + '\'' +
+                ", technologies=" + technologies +
+                ", activeProjects=" + activeProjects +
+                ", commits=" + commits +
+                ", issues=" + issues +
                 ", logins=" + logins +
                 '}';
     }

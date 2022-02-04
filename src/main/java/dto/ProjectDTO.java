@@ -1,5 +1,6 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Programmer;
 import dao.Repository;
 import dao.Technology;
@@ -25,16 +26,18 @@ public class ProjectDTO {
     private Repository repository;
     private Programmer boss;
 
-
-    public String basicToString() {
-        return "Project{" +
+    @Override
+    @JsonValue
+    public String toString() {
+        return "{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", repository=" + repository.basicToString() +
-                ", boss=" + boss.basicToString() +
+                ", technologies=" + technologies +
+                ", repository=" + repository +
+                ", boss=" + boss +
                 '}';
     }
 

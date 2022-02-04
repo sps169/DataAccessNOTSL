@@ -81,13 +81,23 @@ public class Repository {
         this.issues = issues;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", creationDate:" + creationDate +
+                '}';
+    }
 
-    public String basicToString() {
+    public String fullToString() {
         return "Repository{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", creationDate=" + creationDate +
-                ", project=" + project.basicToString() +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", creationDate:" + creationDate +
+                ", project:" + project +
+                ", commits:" + commits +
+                ", issues:" + issues +
                 '}';
     }
 

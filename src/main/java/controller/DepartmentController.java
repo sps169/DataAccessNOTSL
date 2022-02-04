@@ -5,6 +5,8 @@ import service.DepartmentService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class DepartmentController {
     private static DepartmentController controller;
     private final DepartmentService service;
@@ -20,47 +22,47 @@ public class DepartmentController {
         return controller;
     }
 
-    public List<DepartmentDTO> getAllDepartments() {
+    public String getAllDepartments() {
         try {
-            return service.getAllDepartments();
+            return jsonMapper.writeValueAsString(service.getAllDepartments());
         }catch (Exception ex) {
             System.err.println("Error retrieving all departments "+ ex.getMessage());
             return null;
         }
     }
 
-    public DepartmentDTO getDepartmentById(String id) {
+    public String getDepartmentById(String id) {
         try {
-            return service.getDepartmentById(id);
+            return jsonMapper.writeValueAsString(service.getDepartmentById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving department with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public DepartmentDTO insertDepartment(DepartmentDTO departmentDTO) {
+    public String insertDepartment(DepartmentDTO departmentDTO) {
         try {
-            return service.insertDepartment(departmentDTO);
+            return jsonMapper.writeValueAsString(service.insertDepartment(departmentDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting department with id "+ departmentDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public DepartmentDTO updateDepartment(DepartmentDTO departmentDTO) {
+    public String updateDepartment(DepartmentDTO departmentDTO) {
         try {
-            return service.updateDepartment(departmentDTO);
+            return jsonMapper.writeValueAsString(service.updateDepartment(departmentDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating department with id"+ departmentDTO.getId());
+            System.err.println("Error updating department with id"+ departmentDTO.getId() + ex.getMessage());
             return null;
         }
     }
 
-    public DepartmentDTO deleteDepartment(DepartmentDTO departmentDTO) {
+    public String deleteDepartment(DepartmentDTO departmentDTO) {
         try {
-            return service.deleteDepartment(departmentDTO);
+            return jsonMapper.writeValueAsString(service.deleteDepartment(departmentDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating department with id"+ departmentDTO.getId());
+            System.err.println("Error deleting department with id"+ departmentDTO.getId() + ex.getMessage());
             return null;
         }
     }

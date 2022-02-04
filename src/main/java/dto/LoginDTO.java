@@ -1,5 +1,7 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Programmer;
 
 import java.util.Date;
@@ -65,10 +67,11 @@ public class LoginDTO {
     }
 
     @Override
+    @JsonValue
     public String toString() {
-        return "LoginDTO{" +
+        return "{" +
                 "id=" + id +
-                ", programmer=" +programmer.basicToString()+
+                ", programmer=" +programmer+
                 ", time=" + time +
                 ", token=" + token +
                 ", active=" + active +

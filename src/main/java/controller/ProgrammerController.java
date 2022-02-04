@@ -5,6 +5,8 @@ import service.ProgrammerService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class ProgrammerController {
     private static ProgrammerController controller;
     private ProgrammerService service;
@@ -20,38 +22,38 @@ public class ProgrammerController {
         return controller;
     }
 
-    public List<ProgrammerDTO> getAllProgrammers() {
+    public String getAllProgrammers() {
         try {
-            return service.getAllProgrammers();
+            return jsonMapper.writeValueAsString(service.getAllProgrammers());
         }catch (Exception ex) {
             System.err.println("Error retrieving all programmers "+ ex.getMessage());
             return null;
         }
     }
 
-    public ProgrammerDTO getProgrammerById(String id) {
+    public String getProgrammerById(String id) {
         try {
-            return service.getProgrammerById(id);
+            return jsonMapper.writeValueAsString(service.getProgrammerById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving programmer with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public ProgrammerDTO insertProgrammer(ProgrammerDTO programmerDTO) {
+    public String insertProgrammer(ProgrammerDTO programmerDTO) {
         try {
-            return service.insertProgrammer(programmerDTO);
+            return jsonMapper.writeValueAsString(service.insertProgrammer(programmerDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting programmer with id "+ programmerDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public ProgrammerDTO updateProgrammer(ProgrammerDTO programmerDTO) {
+    public String updateProgrammer(ProgrammerDTO programmerDTO) {
         try {
-            return service.updateProgrammer(programmerDTO);
+            return jsonMapper.writeValueAsString(service.updateProgrammer(programmerDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating programmer with id"+ programmerDTO.getId());
+            System.err.println("Error updating programmer with id"+ programmerDTO.getId() + " " + ex.getMessage());
             return null;
         }
     }
@@ -60,7 +62,7 @@ public class ProgrammerController {
         try {
             return service.deleteProgrammer(programmerDTO);
         }catch (Exception ex) {
-            System.err.println("Error updating programmer with id"+ programmerDTO.getId());
+            System.err.println("Error deleting programmer with id"+ programmerDTO.getId() + " " + ex.getMessage());
             return null;
         }
     }

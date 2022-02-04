@@ -5,6 +5,8 @@ import service.CommitService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class CommitController {
     private static CommitController controller;
     private final CommitService service;
@@ -20,47 +22,47 @@ public class CommitController {
         return controller;
     }
 
-    public List<CommitDTO> getAllCommits() {
+    public String getAllCommits() {
         try {
-            return service.getAllCommits();
+            return jsonMapper.writeValueAsString(service.getAllCommits());
         }catch (Exception ex) {
             System.err.println("Error retrieving all commits "+ ex.getMessage());
             return null;
         }
     }
 
-    public CommitDTO getCommitById(String id) {
+    public String getCommitById(String id) {
         try {
-            return service.getCommitById(id);
+            return jsonMapper.writeValueAsString(service.getCommitById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving commit with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public CommitDTO insertCommit(CommitDTO commitDTO) {
+    public String insertCommit(CommitDTO commitDTO) {
         try {
-            return service.insertCommit(commitDTO);
+            return jsonMapper.writeValueAsString(service.insertCommit(commitDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting commit with id "+ commitDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public CommitDTO updateCommit(CommitDTO commitDTO) {
+    public String updateCommit(CommitDTO commitDTO) {
         try {
-            return service.updateCommit(commitDTO);
+            return jsonMapper.writeValueAsString(service.updateCommit(commitDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating commit with id"+ commitDTO.getId());
+            System.err.println("Error updating commit with id"+ commitDTO.getId() + ex.getMessage());
             return null;
         }
     }
 
-    public CommitDTO deleteCommit(CommitDTO commitDTO) {
+    public String deleteCommit(CommitDTO commitDTO) {
         try {
-            return service.deleteCommit(commitDTO);
+            return jsonMapper.writeValueAsString(service.deleteCommit(commitDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating commit with id"+ commitDTO.getId());
+            System.err.println("Error deleting commit with id"+ commitDTO.getId() + ex.getMessage());
             return null;
         }
     }

@@ -1,5 +1,8 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Issue;
 import dao.Programmer;
 import dao.Project;
@@ -8,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EmbeddedId;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -26,16 +30,17 @@ public class CommitDTO {
     private Programmer programmer;
 
     @Override
+    @JsonValue
     public String toString() {
-        return "CommitDTO{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", date=" + date +
-                ", repository=" + repository +
-                ", issue=" + issue +
-                ", project=" + project +
-                ", programmer=" + programmer +
+        return "{" +
+                "id:'" + id + '\'' +
+                ", title:'" + title + '\'' +
+                ", text:'" + text + '\'' +
+                ", date:" + date +
+                ", repository:" + repository +
+                ", issue:" + issue +
+                ", project:" + project +
+                ", programmer:" + programmer +
                 '}';
     }
 

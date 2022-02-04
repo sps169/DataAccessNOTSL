@@ -74,7 +74,7 @@ public class Project {
         this.endDate = endDate;
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Technology> getTechnologies() {
         return technologies;
     }
@@ -101,15 +101,28 @@ public class Project {
         this.boss = boss;
     }
 
-    public String basicToString() {
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", budget:" + budget +
+                ", startDate:" + startDate +
+                ", endDate:" + endDate +
+                '}';
+    }
+
+
+    public String fullToString() {
         return "Project{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", budget=" + budget +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", repository=" + repository.basicToString() +
-                ", boss=" + boss.basicToString() +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", budget:" + budget +
+                ", startDate:" + startDate +
+                ", endDate:" + endDate +
+                ", technologies:" + technologies +
+                ", repository:" + repository +
+                ", boss:" + boss +
                 '}';
     }
 

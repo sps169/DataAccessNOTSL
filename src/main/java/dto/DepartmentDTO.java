@@ -1,5 +1,9 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Programmer;
 import dao.Project;
 
@@ -81,14 +85,17 @@ public class DepartmentDTO {
     public void setHistoricBosses(Set<Programmer> historicBosses) {
         this.historicBosses = historicBosses;
     }
-    public String basicToString() {
-        return "DepartmentDTO{" +
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return "{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
                 ", ongoingProjects=" + ongoingProjects +
                 ", endedProjects=" + endedProjects +
-                ", boss=" + boss.basicToString() +
+                ", boss=" + boss +
                 '}';
     }
 

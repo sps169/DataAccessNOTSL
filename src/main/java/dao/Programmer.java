@@ -88,7 +88,7 @@ public class Programmer {
         this.password = password;
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Technology> getTechnologies() {
         return technologies;
     }
@@ -132,13 +132,31 @@ public class Programmer {
         this.logins = logins;
     }
 
-    public String basicToString() {
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", mail:'" + mail + '\'' +
+                ", entryDate:" + entryDate +
+                ", salary:" + salary +
+                '}';
+    }
+
+    public String fullToString() {
         return "Programmer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
-                ", entryDate=" + entryDate +
-                ", salary=" + salary +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", mail:'" + mail + '\'' +
+                ", entryDate:" + entryDate +
+                ", department:" + department +
+                ", salary:" + salary +
+                ", password:'" + password + '\'' +
+                ", technologies:" + technologies +
+                ", activeProjects:" + activeProjects +
+                ", commits:" + commits +
+                ", issues:" + issues +
+                ", logins:" + logins +
                 '}';
     }
 

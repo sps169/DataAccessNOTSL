@@ -5,6 +5,8 @@ import service.RepositoryService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class RepositoryController {
     private static RepositoryController controller;
     private final RepositoryService service;
@@ -20,47 +22,47 @@ public class RepositoryController {
         return controller;
     }
 
-    public List<RepositoryDTO> getAllRepositorys() {
+    public String getAllRepositories() {
         try {
-            return service.getAllRepositorys();
+            return jsonMapper.writeValueAsString(service.getAllRepositories());
         }catch (Exception ex) {
             System.err.println("Error retrieving all repositorys "+ ex.getMessage());
             return null;
         }
     }
 
-    public RepositoryDTO getRepositoryById(String id) {
+    public String getRepositoryById(String id) {
         try {
-            return service.getRepositoryById(id);
+            return jsonMapper.writeValueAsString(service.getRepositoryById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving repository with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public RepositoryDTO insertRepository(RepositoryDTO repositoryDTO) {
+    public String insertRepository(RepositoryDTO repositoryDTO) {
         try {
-            return service.insertRepository(repositoryDTO);
+            return jsonMapper.writeValueAsString(service.insertRepository(repositoryDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting repository with id "+ repositoryDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public RepositoryDTO updateRepository(RepositoryDTO repositoryDTO) {
+    public String updateRepository(RepositoryDTO repositoryDTO) {
         try {
-            return service.updateRepository(repositoryDTO);
+            return jsonMapper.writeValueAsString(service.updateRepository(repositoryDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating repository with id"+ repositoryDTO.getId());
+            System.err.println("Error updating repository with id"+ repositoryDTO.getId() + ex.getMessage());
             return null;
         }
     }
 
-    public RepositoryDTO deleteRepository(RepositoryDTO repositoryDTO) {
+    public String deleteRepository(RepositoryDTO repositoryDTO) {
         try {
-            return service.deleteRepository(repositoryDTO);
+            return jsonMapper.writeValueAsString(service.deleteRepository(repositoryDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating repository with id"+ repositoryDTO.getId());
+            System.err.println("Error deleting repository with id"+ repositoryDTO.getId() + ex.getMessage());
             return null;
         }
     }

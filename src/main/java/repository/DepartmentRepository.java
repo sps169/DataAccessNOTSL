@@ -2,6 +2,7 @@ package repository;
 
 import dao.Commit;
 import dao.Department;
+import dao.Issue;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
@@ -40,7 +41,6 @@ public class DepartmentRepository implements CRUDRepository<Department,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            department.setId(null);
             manager.persist(department);
             manager.getTransaction().commit();
             return department;
@@ -51,6 +51,22 @@ public class DepartmentRepository implements CRUDRepository<Department,String> {
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Department saveInSession(Department department) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(department);
+            manager.getTransaction().commit();
+            return department;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Department "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 
@@ -79,11 +95,11 @@ public class DepartmentRepository implements CRUDRepository<Department,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            Commit found = manager.find(Commit.class, department.getId());
+            Department found = manager.find(Department.class, department.getId());
             if(found !=null) manager.remove(found);
             manager.getTransaction().commit();
         }catch (Exception ex) {
-            throw new Exception("Error al borrar login con id" + department.getId() + " " + ex.getMessage());
+            throw new Exception("Error al borrar departamento con id" + department.getId() + " " + ex.getMessage());
         }finally {
             if (controller.getTransaction().isActive()) {
                 controller.getTransaction().rollback();

@@ -5,6 +5,8 @@ import service.IssueService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class IssueController {
     private static IssueController controller;
     private final IssueService service;
@@ -20,47 +22,47 @@ public class IssueController {
         return controller;
     }
 
-    public List<IssueDTO> getAllIssues() {
+    public String getAllIssues() {
         try {
-            return service.getAllIssues();
+            return jsonMapper.writeValueAsString(service.getAllIssues());
         }catch (Exception ex) {
             System.err.println("Error retrieving all issues "+ ex.getMessage());
             return null;
         }
     }
 
-    public IssueDTO getIssueById(String id) {
+    public String getIssueById(String id) {
         try {
-            return service.getIssueById(id);
+            return jsonMapper.writeValueAsString(service.getIssueById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving issue with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public IssueDTO insertIssue(IssueDTO issueDTO) {
+    public String insertIssue(IssueDTO issueDTO) {
         try {
-            return service.insertIssue(issueDTO);
+            return jsonMapper.writeValueAsString(service.insertIssue(issueDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting issue with id "+ issueDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public IssueDTO updateIssue(IssueDTO issueDTO) {
+    public String updateIssue(IssueDTO issueDTO) {
         try {
-            return service.updateIssue(issueDTO);
+            return jsonMapper.writeValueAsString(service.updateIssue(issueDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating issue with id"+ issueDTO.getId());
+            System.err.println("Error updating issue with id"+ issueDTO.getId() + ex.getMessage());
             return null;
         }
     }
 
-    public IssueDTO deleteIssue(IssueDTO issueDTO) {
+    public String deleteIssue(IssueDTO issueDTO) {
         try {
-            return service.deleteIssue(issueDTO);
+            return jsonMapper.writeValueAsString(service.deleteIssue(issueDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating issue with id"+ issueDTO.getId());
+            System.err.println("Error deleting issue with id"+ issueDTO.getId() + ex.getMessage());
             return null;
         }
     }

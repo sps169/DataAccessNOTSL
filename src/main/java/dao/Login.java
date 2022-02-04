@@ -72,13 +72,24 @@ public class Login {
         this.active = active;
     }
 
+    @Override
     public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", time:" + time +
+                ", token:" + token +
+                ", active:" + active +
+                '}';
+    }
+
+
+    public String fullToString() {
         return "Login{" +
-                "id='" + id + '\'' +
-                ", time=" + time +
-                ", token=" + token +
-                ", active=" + active +
-                ", programmer=" +programmer.basicToString()+
+                "id:'" + id + '\'' +
+                ", programmer:" + programmer +
+                ", time:" + time +
+                ", token:" + token +
+                ", active:" + active +
                 '}';
     }
 

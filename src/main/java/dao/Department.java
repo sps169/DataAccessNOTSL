@@ -89,14 +89,24 @@ public class Department {
         this.historicBosses = historicBosses;
     }
 
-    public String basicToString() {
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", budget=" + budget +
+                '}';
+    }
+
+    public String fullToString() {
         return "Department{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
                 ", ongoingProjects=" + ongoingProjects +
                 ", endedProjects=" + endedProjects +
-                ", boss=" + boss.basicToString() +
+                ", boss=" + boss +
+                ", historicBosses=" + historicBosses +
                 '}';
     }
 

@@ -1,5 +1,8 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Commit;
 import dao.Issue;
 import dao.Project;
@@ -23,12 +26,16 @@ public class RepositoryDTO {
     private Set<Commit> commits;
     private Set<Issue> issues;
 
-    public String basicToString() {
-        return "RepositoryDTO{" +
+    @Override
+    @JsonValue
+    public String toString() {
+        return "{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", creationDate=" + creationDate +
-                ", project=" + project.basicToString() +
+                ", project=" + project +
+                ", commits=" + commits +
+                ", issues=" + issues +
                 '}';
     }
 

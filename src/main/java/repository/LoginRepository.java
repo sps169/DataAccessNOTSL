@@ -2,6 +2,7 @@ package repository;
 
 
 import dao.Login;
+import dao.Programmer;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
@@ -43,7 +44,6 @@ public class LoginRepository implements CRUDRepository<Login, String>{
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-//            login.setId(null);
             manager.persist(login);
             manager.getTransaction().commit();
             return login;
@@ -54,6 +54,22 @@ public class LoginRepository implements CRUDRepository<Login, String>{
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Login saveInSession(Login login) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(login);
+            manager.getTransaction().commit();
+            return login;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Login "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 

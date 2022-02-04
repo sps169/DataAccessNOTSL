@@ -102,17 +102,26 @@ public class Commit {
         this.programmer = programmer;
     }
 
+    public String fullToString() {
+        return "Commit{" +
+                "id:'" + id + '\'' +
+                ", title:'" + title + '\'' +
+                ", text:'" + text + '\'' +
+                ", date:" + date +
+                ", repository:" + repository +
+                ", issue:" + issue +
+                ", project:" + project +
+                ", programmer:" + programmer +
+                '}';
+    }
+
     @Override
     public String toString() {
-        return "Commit{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", date=" + date +
-                ", repository=" + repository +
-                ", issue=" + issue +
-                ", project=" + project +
-                ", programmer=" + programmer +
+        return "{" +
+                "\"id\":\"" + id + '\"' +
+                ", \"title\":\"" + title + '\"' +
+                ", \"text\":\"" + text + '\"' +
+                ", \"date\":\"" + date + "\"" +
                 '}';
     }
 

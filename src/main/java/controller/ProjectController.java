@@ -5,6 +5,8 @@ import service.ProjectService;
 
 import java.util.List;
 
+import static controller.BaseController.jsonMapper;
+
 public class ProjectController {
     private static ProjectController controller;
     private final ProjectService service;
@@ -20,47 +22,47 @@ public class ProjectController {
         return controller;
     }
 
-    public List<ProjectDTO> getAllProjects() {
+    public String getAllProjects() {
         try {
-            return service.getAllProjects();
+            return jsonMapper.writeValueAsString(service.getAllProjects());
         }catch (Exception ex) {
             System.err.println("Error retrieving all projects "+ ex.getMessage());
             return null;
         }
     }
 
-    public ProjectDTO getProjectById(String id) {
+    public String getProjectById(String id) {
         try {
-            return service.getProjectById(id);
+            return jsonMapper.writeValueAsString(service.getProjectById(id));
         }catch (Exception ex) {
             System.err.println("Error retreiving project with id: '" + id + "'" + ex.getMessage());
             return null;
         }
     }
 
-    public ProjectDTO insertProject(ProjectDTO projectDTO) {
+    public String insertProject(ProjectDTO projectDTO) {
         try {
-            return service.insertProject(projectDTO);
+            return jsonMapper.writeValueAsString(service.insertProject(projectDTO));
         }catch (Exception ex) {
             System.err.println("Error inserting project with id "+ projectDTO.getId() +" into database: " + ex.getMessage());
             return null;
         }
     }
 
-    public ProjectDTO updateProject(ProjectDTO projectDTO) {
+    public String updateProject(ProjectDTO projectDTO) {
         try {
-            return service.updateProject(projectDTO);
+            return jsonMapper.writeValueAsString(service.updateProject(projectDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating project with id"+ projectDTO.getId());
+            System.err.println("Error updating project with id"+ projectDTO.getId() + ex.getMessage());
             return null;
         }
     }
 
-    public ProjectDTO deleteProject(ProjectDTO projectDTO) {
+    public String deleteProject(ProjectDTO projectDTO) {
         try {
-            return service.deleteProject(projectDTO);
+            return jsonMapper.writeValueAsString(service.deleteProject(projectDTO));
         }catch (Exception ex) {
-            System.err.println("Error updating project with id"+ projectDTO.getId());
+            System.err.println("Error deleting project with id"+ projectDTO.getId() + ex.getMessage());
             return null;
         }
     }

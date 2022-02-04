@@ -1,6 +1,7 @@
 package repository;
 
 import dao.Programmer;
+import dao.Project;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
@@ -39,7 +40,6 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-//            programmer.setId(null);
             manager.persist(programmer);
             manager.getTransaction().commit();
             return programmer;
@@ -50,6 +50,22 @@ public class ProgrammerRepository implements CRUDRepository<Programmer,String> {
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Programmer saveInSession(Programmer programmer) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(programmer);
+            manager.getTransaction().commit();
+            return programmer;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Programmer "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 

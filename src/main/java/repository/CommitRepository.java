@@ -1,6 +1,7 @@
 package repository;
 
 import dao.Commit;
+import dao.Department;
 import manager.DBController;
 
 import javax.persistence.EntityManager;
@@ -39,7 +40,6 @@ public class CommitRepository implements CRUDRepository<Commit, String>{
         try {
             EntityManager manager = controller.getManager();
             manager.getTransaction().begin();
-            commit.setId(null);
             manager.persist(commit);
             manager.getTransaction().commit();
             return commit;
@@ -50,6 +50,22 @@ public class CommitRepository implements CRUDRepository<Commit, String>{
                 controller.getTransaction().rollback();
             }
             controller.close();
+        }
+    }
+
+    public Commit saveInSession(Commit commit) throws Exception {
+        try {
+            EntityManager manager = controller.getManager();
+            manager.getTransaction().begin();
+            manager.persist(commit);
+            manager.getTransaction().commit();
+            return commit;
+        }catch (Exception ex) {
+            throw new Exception("Error al insertar Commit "+ ex.getMessage());
+        }finally {
+            if (controller.getTransaction().isActive()) {
+                controller.getTransaction().rollback();
+            }
         }
     }
 
