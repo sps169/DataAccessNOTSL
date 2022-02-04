@@ -20,6 +20,10 @@ public class LoginController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de LoginController
+     */
     public static LoginController getInstance(LoginService service) {
         if (instance == null) {
             instance = new LoginController(service);

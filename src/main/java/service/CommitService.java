@@ -14,6 +14,11 @@ import java.util.List;
  * con los resultados de las operaciones.
  */
 public class CommitService extends BaseService<Commit, String, CommitRepository> {
+
+    /**
+     * Constructor con dependencia de repositorio
+     * @param repository inyección de dependencia de repositorio
+     */
     public CommitService(CommitRepository repository) {
         super(repository);
     }

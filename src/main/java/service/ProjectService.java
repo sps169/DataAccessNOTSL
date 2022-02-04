@@ -24,6 +24,11 @@ import java.util.Set;
  * con los resultados de las operaciones.
  */
 public class ProjectService extends BaseService<Project, String, ProjectRepository> {
+
+    /**
+     * Constructor con dependencia de project
+     * @param repository inyección de dependencia de project
+     */
     public ProjectService(ProjectRepository repository) {
         super(repository);
     }

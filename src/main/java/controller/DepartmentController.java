@@ -19,6 +19,10 @@ public class DepartmentController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de DepartmentController
+     */
     public static DepartmentController getInstance(DepartmentService service) {
         if (controller == null) {
             controller = new DepartmentController(service);

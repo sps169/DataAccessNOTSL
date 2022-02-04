@@ -25,6 +25,11 @@ import java.util.stream.Collectors;
 public class ProgrammerService extends BaseService<Programmer, String, ProgrammerRepository> {
 
     private ProgrammerMapper mapper = new ProgrammerMapper();
+
+    /**
+     * Constructor con dependencia de programmer
+     * @param repository inyección de dependencia de programmer
+     */
     public ProgrammerService(ProgrammerRepository repository) {
         super(repository);
     }

@@ -21,6 +21,11 @@ import java.util.List;
  */
 public class IssueService extends BaseService<Issue,String, IssueRepository> {
     private final IssueMapper mapper = new IssueMapper();
+
+    /**
+     * Constructor con dependencia de issue
+     * @param repository inyección de dependencia de issue
+     */
     public IssueService(IssueRepository repository) {
         super(repository);
     }

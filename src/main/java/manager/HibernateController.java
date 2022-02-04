@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 /**
  * Controlador de Entidades de Hibernate JPA
+ * Implementa la interfaz DBController
  */
 @Getter
 public class HibernateController implements DBController {
@@ -22,6 +23,10 @@ public class HibernateController implements DBController {
     private HibernateController() {
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de DBController
+     */
     public static DBController getInstance() {
         if (controller == null)
             controller = new HibernateController();

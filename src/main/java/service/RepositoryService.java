@@ -23,6 +23,11 @@ import java.util.Set;
  */
 public class RepositoryService extends BaseService<Repository,String,RepositoryRepository>{
     private RepositoryMapper mapper = new RepositoryMapper();
+
+    /**
+     * Constructor con dependencia de repository
+     * @param repository inyección de dependencia de repository
+     */
     public RepositoryService(RepositoryRepository repository) {
         super(repository);
     }

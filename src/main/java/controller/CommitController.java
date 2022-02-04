@@ -19,6 +19,10 @@ public class CommitController {
         this.service = service;
     }
 
+    /**
+     * obtener instancia singleton
+     * @return instancia de CommitController
+     */
     public static CommitController getInstance(CommitService service) {
         if (controller == null) {
             controller = new CommitController(service);
