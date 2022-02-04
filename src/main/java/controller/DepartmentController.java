@@ -7,6 +7,10 @@ import java.util.List;
 
 import static controller.BaseController.jsonMapper;
 
+/**
+ * Controlador para la entidad departamento. Implementa un CRUD y sus metodos retornan JSON
+ * con los resultados de las operaciones. Implementa un patron singleton.
+ */
 public class DepartmentController {
     private static DepartmentController controller;
     private final DepartmentService service;
@@ -22,6 +26,10 @@ public class DepartmentController {
         return controller;
     }
 
+    /**
+     * Obtener todas las entidades departamento
+     * @return String JSON con todos los departamentos
+     */
     public String getAllDepartments() {
         try {
             return jsonMapper.writeValueAsString(service.getAllDepartments());
@@ -31,6 +39,11 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * Obtener entidad departamento segun la id
+     * @param id String id del departamento
+     * @return String JSON con todos los departamentos
+     */
     public String getDepartmentById(String id) {
         try {
             return jsonMapper.writeValueAsString(service.getDepartmentById(id));
@@ -40,6 +53,11 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * inserta un departamento en la base de datos
+     * @param departmentDTO departamento a insertar
+     * @return String JSON correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public String insertDepartment(DepartmentDTO departmentDTO) {
         try {
             return jsonMapper.writeValueAsString(service.insertDepartment(departmentDTO));
@@ -49,6 +67,11 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * actualiza un departamento en la base de datos
+     * @param departmentDTO a actualizar
+     * @return String JSON si la operacion se realiza, null en caso de no realizarse
+     */
     public String updateDepartment(DepartmentDTO departmentDTO) {
         try {
             return jsonMapper.writeValueAsString(service.updateDepartment(departmentDTO));
@@ -58,6 +81,11 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * elimina un departamento de la base de datos
+     * @param departmentDTO a eliminar
+     * @return String JSON si la operacion se realiza, null en caso de no realizars
+     */
     public String deleteDepartment(DepartmentDTO departmentDTO) {
         try {
             return jsonMapper.writeValueAsString(service.deleteDepartment(departmentDTO));

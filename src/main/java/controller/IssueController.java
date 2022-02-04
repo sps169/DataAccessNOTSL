@@ -7,6 +7,10 @@ import java.util.List;
 
 import static controller.BaseController.jsonMapper;
 
+/**
+ * Controlador para la entidad issue. Implementa un CRUD y sus metodos retornan JSON
+ * con los resultados de las operaciones. Implementa un patron singleton.
+ */
 public class IssueController {
     private static IssueController controller;
     private final IssueService service;
@@ -22,6 +26,10 @@ public class IssueController {
         return controller;
     }
 
+    /**
+     * Obtener todas las entidades issue
+     * @return String JSON con todos los issues
+     */
     public String getAllIssues() {
         try {
             return jsonMapper.writeValueAsString(service.getAllIssues());
@@ -31,6 +39,11 @@ public class IssueController {
         }
     }
 
+    /**
+     * Obtener entidad issue segun la id
+     * @param id String id del issue
+     * @return String JSON con todos los issues
+     */
     public String getIssueById(String id) {
         try {
             return jsonMapper.writeValueAsString(service.getIssueById(id));
@@ -40,6 +53,11 @@ public class IssueController {
         }
     }
 
+    /**
+     * inserta un issue en la base de datos
+     * @param issueDTO issue a insertar
+     * @return String JSON correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public String insertIssue(IssueDTO issueDTO) {
         try {
             return jsonMapper.writeValueAsString(service.insertIssue(issueDTO));
@@ -49,6 +67,11 @@ public class IssueController {
         }
     }
 
+    /**
+     * actualiza un issue en la base de datos
+     * @param issueDTO a actualizar
+     * @return String JSON si la operacion se realiza, null en caso de no realizarse
+     */
     public String updateIssue(IssueDTO issueDTO) {
         try {
             return jsonMapper.writeValueAsString(service.updateIssue(issueDTO));
@@ -58,6 +81,11 @@ public class IssueController {
         }
     }
 
+    /**
+     * elimina un issue de la base de datos
+     * @param issueDTO a eliminar
+     * @return String JSON si la operacion se realiza, null en caso de no realizars
+     */
     public String deleteIssue(IssueDTO issueDTO) {
         try {
             return jsonMapper.writeValueAsString(service.deleteIssue(issueDTO));

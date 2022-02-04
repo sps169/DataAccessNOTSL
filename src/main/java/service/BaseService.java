@@ -3,6 +3,13 @@ package service;
 import repository.CRUDRepository;
 import java.util.List;
 
+/**
+ * clase abstracta que implementa mapeos basicos de los repositorios
+ * a los servicios. Implementa la interfaz CRUDRepository
+ * @param <T> Tipo de dato para el que damos servicio
+ * @param <ID> Tipo de clave del dato
+ * @param <R> Tipo de repositorio del dato
+ */
 public abstract class BaseService<T, ID, R extends CRUDRepository<T, ID>> {
     protected final R repository;
 

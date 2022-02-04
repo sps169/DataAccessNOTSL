@@ -35,7 +35,7 @@ class LoginControllerTest {
             UUID.fromString("1397c742-642f-4cca-a79f-2551abe13978"),
             false
     );
-    
+
     @BeforeAll
     static void setup() {
 

@@ -19,6 +19,10 @@ import repository.RepositoryRepository;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Servicio para la entidad proyecto. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class ProjectService extends BaseService<Project, String, ProjectRepository> {
     public ProjectService(ProjectRepository repository) {
         super(repository);
@@ -26,24 +30,49 @@ public class ProjectService extends BaseService<Project, String, ProjectReposito
 
     private final ProjectMapper mapper = new ProjectMapper();
 
+    /**
+     * Obtener todas las entidades proyecto
+     * @return Lista con todos los proyectos
+     */
     public List<ProjectDTO> getAllProjects() throws Exception {
         return mapper.toDTO(this.findAll());
     }
 
+    /**
+     * Obtener entidad proyecto segun la id
+     * @param id String id del proyecto
+     * @return Lista con todos los proyectos
+     */
     public ProjectDTO getProjectById(String id) throws Exception {
         return mapper.toDTO(this.getById(id));
     }
 
+    /**
+     * inserta un proyecto en la base de datos
+     * @param projectDTO proyecto a insertar
+     * @return Lista de proyecto correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public ProjectDTO insertProject(ProjectDTO projectDTO) throws Exception {
         Project project = this.save(mapper.fromDTO(projectDTO));
         return mapper.toDTO(project);
     }
 
+    /**
+     * actualiza un proyecto en la base de datos
+     * @param projectDTO a actualizar
+     * @return Lista de proyecto si la operacion se realiza, null en caso de no realizarse
+     */
     public ProjectDTO updateProject(ProjectDTO projectDTO) throws Exception {
         Project project = this.update(mapper.fromDTO(projectDTO));
         return mapper.toDTO(project);
     }
 
+    /**
+     * elimina un proyecto de la base de datos. Se asegura de quitar sus relaciones en otras
+     * entidades con las que pueda estar relacionada.
+     * @param projectDTO a eliminar
+     * @return Lista de proyecto si la operacion se realiza, null en caso de no realizars
+     */
     public ProjectDTO deleteProject(ProjectDTO projectDTO) throws Exception {
         ProgrammerRepository programmerRepository = new ProgrammerRepository(HibernateController.getInstance());
         System.out.println("Fetching projects boss for removing project");

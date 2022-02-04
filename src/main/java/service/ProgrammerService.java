@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Servicio para la entidad programmer. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class ProgrammerService extends BaseService<Programmer, String, ProgrammerRepository> {
 
     private ProgrammerMapper mapper = new ProgrammerMapper();
@@ -25,14 +29,28 @@ public class ProgrammerService extends BaseService<Programmer, String, Programme
         super(repository);
     }
 
+    /**
+     * Obtener todas las entidades programmer
+     * @return Lista con todos los programmers
+     */
     public List<ProgrammerDTO> getAllProgrammers() throws Exception {
         return mapper.toDTO(this.findAll());
     }
 
+    /**
+     * Obtener entidad programmer segun la id
+     * @param id String id del programmer
+     * @return Lista con todos los programmers
+     */
     public ProgrammerDTO getProgrammerById(String id) throws Exception {
         return mapper.toDTO(this.getById(id));
     }
 
+    /**
+     * inserta un programmer en la base de datos
+     * @param programmerDTO programmer a insertar
+     * @return Lista de programmer correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public ProgrammerDTO insertProgrammer(ProgrammerDTO programmerDTO) throws Exception {
         if (checkProgrammer(programmerDTO) != null) {
             Programmer programmer = this.save(mapper.fromDTO(programmerDTO));
@@ -46,6 +64,11 @@ public class ProgrammerService extends BaseService<Programmer, String, Programme
         }
     }
 
+    /**
+     * actualiza un programmer en la base de datos
+     * @param programmerDTO a actualizar
+     * @return Lista de programmer si la operacion se realiza, null en caso de no realizarse
+     */
     public ProgrammerDTO updateProgrammer(ProgrammerDTO programmerDTO) throws Exception {
         if (checkProgrammer(programmerDTO) != null) {
             Programmer programmer = this.update(mapper.fromDTO(programmerDTO));
@@ -59,6 +82,12 @@ public class ProgrammerService extends BaseService<Programmer, String, Programme
         }
     }
 
+    /**
+     * elimina un programmer de la base de datos. Se asegura de quitar sus relaciones en otras
+     * entidades con las que pueda estar relacionada.
+     * @param programmerDTO a eliminar
+     * @return Lista de programmer si la operacion se realiza, null en caso de no realizars
+     */
     public ProgrammerDTO deleteProgrammer(ProgrammerDTO programmerDTO) throws Exception {
         ProjectRepository projectRepository = new ProjectRepository(HibernateController.getInstance());
         if (programmerDTO.getActiveProjects() != null) {

@@ -18,6 +18,10 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Commit.findAll", query = "SELECT l FROM Commit l")
 })
+/**
+ * Clase POJO que modela un Commit. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 public class Commit {
     private String id;
     private String title;
@@ -102,6 +106,10 @@ public class Commit {
         this.programmer = programmer;
     }
 
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Commit{" +
                 "id:'" + id + '\'' +
@@ -115,6 +123,10 @@ public class Commit {
                 '}';
     }
 
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "{" +
@@ -125,6 +137,11 @@ public class Commit {
                 '}';
     }
 
+    /**
+     * metodo equals
+     * @param o objeto al que compara
+     * @return true si el id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

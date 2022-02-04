@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Servicio para la entidad departamento. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class DepartmentService extends BaseService<Department, String, DepartmentRepository>{
 
     private final DepartmentMapper mapper = new DepartmentMapper();
@@ -22,14 +26,28 @@ public class DepartmentService extends BaseService<Department, String, Departmen
         super(repository);
     }
 
+    /**
+     * Obtener todas las entidades departamento
+     * @return Lista con todos los departamentos
+     */
     public List<DepartmentDTO> getAllDepartments() throws Exception {
         return mapper.toDTO(this.findAll());
     }
 
+    /**
+     * Obtener entidad departamento segun la id
+     * @param id String id del departamento
+     * @return Lista con todos los departamentos
+     */
     public DepartmentDTO getDepartmentById(String id) throws Exception {
         return mapper.toDTO(this.getById(id));
     }
 
+    /**
+     * inserta un departamento en la base de datos
+     * @param departmentDTO departamento a insertar
+     * @return Lista de departamento correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public DepartmentDTO insertDepartment(DepartmentDTO departmentDTO) throws Exception {
         if (checkDepartment(departmentDTO) != null) {
             Department department = this.save(mapper.fromDTO(departmentDTO));
@@ -43,6 +61,11 @@ public class DepartmentService extends BaseService<Department, String, Departmen
         }
     }
 
+    /**
+     * actualiza un departamento en la base de datos
+     * @param departmentDTO a actualizar
+     * @return Lista de departamento si la operacion se realiza, null en caso de no realizarse
+     */
     public DepartmentDTO updateDepartment(DepartmentDTO departmentDTO) throws Exception {
         if (checkDepartment(departmentDTO) != null) {
             Department department = this.update(mapper.fromDTO(departmentDTO));
@@ -55,6 +78,12 @@ public class DepartmentService extends BaseService<Department, String, Departmen
         }
     }
 
+    /**
+     * elimina un departamento de la base de datos. Se asegura de quitar sus relaciones en otras
+     * entidades con las que pueda estar relacionada.
+     * @param departmentDTO a eliminar
+     * @return Lista de departamento si la operacion se realiza, null en caso de no realizars
+     */
     public DepartmentDTO deleteDepartment(DepartmentDTO departmentDTO) throws Exception {
         ProgrammerRepository programmerRepository = new ProgrammerRepository(HibernateController.getInstance());
         System.out.println("Cleaning programmers references to this department");

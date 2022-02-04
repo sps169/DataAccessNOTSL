@@ -17,20 +17,38 @@ import repository.RepositoryRepository;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Servicio para la entidad repositorio. Implementa un CRUD y sus metodos retornan listas
+ * con los resultados de las operaciones.
+ */
 public class RepositoryService extends BaseService<Repository,String,RepositoryRepository>{
     private RepositoryMapper mapper = new RepositoryMapper();
     public RepositoryService(RepositoryRepository repository) {
         super(repository);
     }
 
+    /**
+     * Obtener todas las entidades repositorio
+     * @return Lista con todos los repositorios
+     */
     public List<RepositoryDTO> getAllRepositories() throws Exception {
         return mapper.toDTO(this.findAll());
     }
 
+    /**
+     * Obtener entidad repositorio segun la id
+     * @param id String id del repositorio
+     * @return Lista con todos los repositorios
+     */
     public RepositoryDTO getRepositoryById(String id) throws Exception {
         return mapper.toDTO(this.getById(id));
     }
 
+    /**
+     * inserta un repositorio en la base de datos
+     * @param repositoryDTO repositorio a insertar
+     * @return Lista de repositorio correcta si la operación se ha realizado, null en caso de no completarse
+     */
     public RepositoryDTO insertRepository(RepositoryDTO repositoryDTO) throws Exception {
         if (checkRepository(repositoryDTO) != null) {
             Repository repository = this.save(mapper.fromDTO(repositoryDTO));
@@ -44,6 +62,11 @@ public class RepositoryService extends BaseService<Repository,String,RepositoryR
         }
     }
 
+    /**
+     * actualiza un repositorio en la base de datos
+     * @param repositoryDTO a actualizar
+     * @return Lista de repositorio si la operacion se realiza, null en caso de no realizarse
+     */
     public RepositoryDTO updateRepository(RepositoryDTO repositoryDTO) throws Exception {
         if (checkRepository(repositoryDTO) != null) {
             Repository repository = this.update(mapper.fromDTO(repositoryDTO));
@@ -57,6 +80,12 @@ public class RepositoryService extends BaseService<Repository,String,RepositoryR
         }
     }
 
+    /**
+     * elimina un repositorio de la base de datos. Se asegura de quitar sus relaciones en otras
+     * entidades con las que pueda estar relacionada.
+     * @param repositoryDTO a eliminar
+     * @return Lista de repositorio si la operacion se realiza, null en caso de no realizars
+     */
     public RepositoryDTO deleteRepository(RepositoryDTO repositoryDTO) throws Exception {
         ProjectRepository projectRepo = new ProjectRepository(HibernateController.getInstance());
         System.out.println("Fetching repository projects");

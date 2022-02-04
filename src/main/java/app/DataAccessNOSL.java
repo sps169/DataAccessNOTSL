@@ -10,7 +10,10 @@ import service.*;
 import java.time.Instant;
 import java.util.*;
 
-
+/**
+ * Clase singleton que implementa un patron "fachada" sobre toda la aplicación
+ * Tiene tres metodos: cargar datos, sacar datos por pantalla y eliminar datos
+ */
 public class DataAccessNOSL {
 
     private static DataAccessNOSL instance;
@@ -42,6 +45,9 @@ public class DataAccessNOSL {
         return instance;
     }
 
+    /**
+     * carga datos en la base de datos
+     */
     public void insertDB() {
         Login login1 = new Login();
         login1.setId("53de5166-7ca8-4ceb-a1d2-20e85b53240f");
@@ -126,7 +132,7 @@ public class DataAccessNOSL {
         );
 
         Programmer programmer = new Programmer(
-             "169c55cd-d5e2-473d-bea4-0485c1dd80d0\n",
+             "169c55cd-d5e2-473d-bea4-0485c1dd80d0",
              "Sergio",
              "sps169@outlook.es",
              Date.from(Instant.now()),
@@ -291,6 +297,9 @@ public class DataAccessNOSL {
 
     }
 
+    /**
+     * saca por consola todas las entidades guardadas en la base de datos
+     */
     public void printDB() {
 
         System.out.println("PROGRAMMERS:");
@@ -315,6 +324,9 @@ public class DataAccessNOSL {
         System.out.println(loginController.getAllLogins());
     }
 
+    /**
+     * borra la base de datos si su integridad es correcta
+     */
     public void deleteDB() {
         try {
             ProgrammerService programmerService = new ProgrammerService(new ProgrammerRepository(HibernateController.getInstance()));

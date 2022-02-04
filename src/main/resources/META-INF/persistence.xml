@@ -8,12 +8,12 @@
 
         <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
 
-<!--        <class>dao.Department</class>-->
+        <class>dao.Department</class>
         <class>dao.Programmer</class>
-<!--        <class>dao.Project</class>-->
-<!--        <class>dao.Repository</class>-->
-<!--        <class>dao.Commit</class>-->
-<!--        <class>dao.Issue</class>-->
+        <class>dao.Project</class>
+        <class>dao.Repository</class>
+        <class>dao.Commit</class>
+        <class>dao.Issue</class>
         <class>dao.Login</class>
 
         <properties>
