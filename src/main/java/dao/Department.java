@@ -1,20 +1,21 @@
 package dao;
 
-import dto.DepartmentDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+/**
+ * Clase POJO que modela un Department. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Department.findAll", query = "SELECT l FROM Department l")
 })
+
 public class Department {
     private String id;
     private String name;
@@ -88,7 +89,10 @@ public class Department {
     public void setHistoricBosses(Set<Programmer> historicBosses) {
         this.historicBosses = historicBosses;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "Department{" +
@@ -97,7 +101,10 @@ public class Department {
                 ", budget=" + budget +
                 '}';
     }
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Department{" +
                 "id='" + id + '\'' +
@@ -109,7 +116,11 @@ public class Department {
                 ", historicBosses=" + historicBosses +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

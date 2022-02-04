@@ -7,8 +7,6 @@ import dao.Technology;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +14,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+/**
+ * Clase POJO de transporte de datos para project. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class ProjectDTO {
     private String id;
     private String name;
@@ -25,7 +27,10 @@ public class ProjectDTO {
     private Set<Technology> technologies;
     private Repository repository;
     private Programmer boss;
-
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -40,7 +45,11 @@ public class ProjectDTO {
                 ", boss=" + boss +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

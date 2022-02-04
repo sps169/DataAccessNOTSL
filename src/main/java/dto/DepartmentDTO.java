@@ -1,15 +1,15 @@
 package dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonValue;
 import dao.Programmer;
 import dao.Project;
 
 import java.util.Objects;
 import java.util.Set;
-
+/**
+ * Clase POJO de transporte de datos para department. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class DepartmentDTO {
     private String id;
     private String name;
@@ -85,7 +85,10 @@ public class DepartmentDTO {
     public void setHistoricBosses(Set<Programmer> historicBosses) {
         this.historicBosses = historicBosses;
     }
-
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -98,7 +101,11 @@ public class DepartmentDTO {
                 ", boss=" + boss +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

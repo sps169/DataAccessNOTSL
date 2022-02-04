@@ -16,6 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+/**
+ * Clase POJO de transporte de datos para issue. Implementa
+ * etiquetas JSON para su serialización
+ */
 public class IssueDTO {
     private String id;
     private String title;
@@ -24,7 +28,10 @@ public class IssueDTO {
     private Set<Programmer> programmers;
     private Project project;
     private Repository repository;
-
+    /**
+     * metodo toString
+     * @return String representando al objeto
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -37,7 +44,11 @@ public class IssueDTO {
                 ", repository=" + repository +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

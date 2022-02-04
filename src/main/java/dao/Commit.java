@@ -1,27 +1,23 @@
 package dao;
 
-import dto.CommitDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Clase POJO que modela un Commit. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Commit.findAll", query = "SELECT l FROM Commit l")
 })
-/**
- * Clase POJO que modela un Commit. Implementa Etiquetas JPA para el modelo
- * de la base de datos.
- */
+
 public class Commit {
     private String id;
     private String title;

@@ -1,23 +1,23 @@
 package dao;
 
-import dto.IssueDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+
+/**
+ * Clase POJO que modela un Issue. Implementa Etiquetas JPA para el modelo
+ * de la base de datos.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Issue.findAll", query = "SELECT l FROM Issue l")
 })
+
 public class Issue {
     private String id;
     private String title;
@@ -92,7 +92,10 @@ public class Issue {
     public void setRepository(Repository repository) {
         this.repository = repository;
     }
-
+    /**
+     * metodo toString sin recursividad
+     * @return String del objeto
+     */
     @Override
     public String toString() {
         return "Issue{" +
@@ -102,7 +105,10 @@ public class Issue {
                 ", date=" + date +
                 '}';
     }
-
+    /**
+     * metodo toString ampliado con relaciones
+     * @return String completa del objeto
+     */
     public String fullToString() {
         return "Issue{" +
                 "id='" + id + '\'' +
@@ -114,7 +120,11 @@ public class Issue {
                 ", repository=" + repository +
                 '}';
     }
-
+    /**
+     * metodo equals
+     * @param o objeto a comparar
+     * @return true si la id coincide, false si no
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
